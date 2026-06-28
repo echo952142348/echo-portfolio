@@ -1,0 +1,282 @@
+/* Final image-based hero composition. Loaded after styles.css on purpose. */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  padding: 0;
+  overflow: hidden;
+  background-image: url("/images/hero-bg.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.hero::before,
+.hero::after,
+.hero-blob,
+.hero-orb,
+.hero-ring,
+.hero-glass-chip,
+.scene-sphere,
+.scene-bubble {
+  display: none;
+}
+
+.hero .hero-shell {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 126px 0 72px;
+}
+
+.hero .hero-shell .hero-showcase {
+  width: min(64vw, 1060px);
+  min-height: min(62vh, 670px);
+  padding: clamp(34px, 4vw, 58px);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.hero .hero-showcase::before,
+.hero .kinetic-title,
+.hero .soft-ring,
+.hero .showcase-cloud {
+  display: none;
+}
+
+.hero .showcase-top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.hero .showcase-pills {
+  justify-self: center;
+  gap: 12px;
+}
+
+.hero .showcase-pills span {
+  min-width: 112px;
+  min-height: 40px;
+  color: #fff;
+  background: rgba(20, 26, 34, 0.92);
+  box-shadow: 0 12px 26px rgba(20, 26, 34, 0.12);
+}
+
+.hero .showcase-focus {
+  justify-self: end;
+  min-height: 40px;
+  color: #243241;
+  border-color: rgba(31, 43, 55, 0.13);
+  background: rgba(255, 255, 255, 0.46);
+}
+
+.hero .showcase-focus span {
+  background: #172231;
+}
+
+.hero .showcase-center {
+  min-height: clamp(320px, 40vh, 430px);
+}
+
+.hero .showcase-center .eyebrow {
+  top: clamp(34px, 5vh, 58px);
+  color: rgba(39, 50, 62, 0.62);
+  border-color: rgba(255, 255, 255, 0.56);
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.hero .showcase-center h1 {
+  max-width: 860px;
+  margin-top: 48px;
+  color: #172231;
+  font-size: clamp(4rem, 6.2vw, 7.2rem);
+  line-height: 0.98;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.hero .showcase-center h1 span {
+  display: block;
+  color: #172231;
+  font-weight: 800;
+}
+
+.hero .showcase-bottom {
+  align-items: end;
+}
+
+.hero .showcase-bottom p {
+  max-width: 520px;
+  color: #52606d;
+  font-size: 1.04rem;
+}
+
+.hero .showcase-bottom .hero-actions {
+  margin-top: 26px;
+  gap: 16px;
+}
+
+.hero .button {
+  min-height: 52px;
+  padding: 0 26px;
+}
+
+.hero .button.primary {
+  color: #fff;
+  background: #172231;
+  box-shadow: 0 18px 34px rgba(23, 34, 49, 0.18);
+}
+
+.hero .button.secondary {
+  color: #243241;
+  border-color: rgba(31, 43, 55, 0.13);
+  background: rgba(255, 255, 255, 0.46);
+}
+
+.hero .hero-overview {
+  width: min(380px, 34vw);
+}
+
+.hero .hero-overview .overview-progress {
+  padding: 20px;
+  border-color: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.36);
+  box-shadow: 0 18px 46px rgba(82, 89, 96, 0.1);
+}
+
+.hero .hero-overview .overview-progress span,
+.hero .hero-overview .overview-progress strong {
+  color: #293747;
+}
+
+.hero .hero-overview .overview-progress i {
+  height: 8px;
+  background:
+    linear-gradient(90deg, #293747 0 72%, rgba(41, 55, 71, 0.12) 72%),
+    rgba(41, 55, 71, 0.12);
+}
+
+.hero .hero-overview .overview-status {
+  display: grid;
+  gap: 5px;
+  width: min(270px, 100%);
+  margin-left: auto;
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.66);
+  border-radius: 22px;
+  color: #293747;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.48), rgba(247, 242, 233, 0.26)),
+    rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 16px 38px rgba(82, 89, 96, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px) saturate(1.02);
+}
+
+.hero .hero-overview .overview-status span {
+  color: rgba(41, 55, 71, 0.66);
+  font-size: 0.86rem;
+  font-weight: 760;
+}
+
+.hero .hero-overview .overview-status strong {
+  color: #172231;
+  font-size: 1.12rem;
+  line-height: 1.2;
+}
+
+.hero .hero-overview .overview-status small {
+  color: rgba(41, 55, 71, 0.54);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.hero .hero-overview .dashboard-tags span {
+  color: #293747;
+  border-color: rgba(255, 255, 255, 0.62);
+  background: rgba(255, 255, 255, 0.38);
+}
+
+.hero .showcase-pills span,
+.hero .showcase-focus,
+.hero .hero-overview .overview-status span,
+.hero .hero-overview .overview-status strong,
+.hero .hero-overview .overview-status small,
+.hero .hero-overview .dashboard-tags span {
+  white-space: nowrap;
+}
+
+.hero .showcase-pills {
+  gap: 12px;
+}
+
+.hero .showcase-pills span {
+  min-width: 88px;
+  padding-inline: 20px;
+}
+
+.hero .showcase-focus {
+  min-width: 152px;
+  padding-inline: 18px;
+}
+
+.hero .hero-overview .dashboard-tags span {
+  min-width: 62px;
+  text-align: center;
+}
+
+@media (max-width: 1180px) {
+  .hero .hero-shell .hero-showcase {
+    width: min(74vw, 900px);
+    min-height: 620px;
+  }
+
+  .hero .showcase-top {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    justify-items: center;
+  }
+
+  .hero .showcase-focus {
+    justify-self: center;
+  }
+
+  .hero .hero-overview {
+    width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    background-size: cover;
+    background-position: center center;
+  }
+
+  .hero .hero-shell {
+    padding: 108px 0 64px;
+  }
+
+  .hero .hero-shell .hero-showcase {
+    width: min(100%, calc(100vw - 32px));
+    min-height: 640px;
+    padding: 24px;
+  }
+
+  .hero .showcase-pills {
+    flex-wrap: wrap;
+  }
+
+  .hero .showcase-pills span {
+    min-width: auto;
+  }
+
+  .hero .showcase-center h1 {
+    font-size: clamp(2.8rem, 12vw, 4.4rem);
+  }
+}
