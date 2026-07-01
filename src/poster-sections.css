@@ -3564,3 +3564,197 @@ body,
     gap: 9px;
   }
 }
+
+/* Final mobile detail refinement: clearer menu, stronger project covers, calmer headings. */
+@media (max-width: 768px) {
+  .nav-links {
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(249, 246, 239, 0.9)),
+      rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(3px);
+  }
+
+  .site-header.menu-open .nav-links {
+    gap: 10px;
+    padding: 14px;
+    border-color: rgba(255, 255, 255, 0.92);
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(249, 246, 239, 0.9)),
+      rgba(255, 255, 255, 0.94);
+    box-shadow:
+      0 12px 28px rgba(53, 55, 58, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(3px);
+  }
+
+  .site-header .nav-links a {
+    min-height: 48px;
+    color: #1d2733;
+    background: rgba(255, 255, 255, 0.72);
+    font-weight: 800;
+  }
+
+  .site-header .nav-links a:active {
+    transform: translateY(1px);
+  }
+
+  .section-heading h2,
+  .contact-content h2 {
+    max-width: 9.2em;
+    font-size: clamp(2.12rem, 8.8vw, 2.5rem);
+    line-height: 1.14;
+  }
+
+  .about-title {
+    max-width: 7.8em;
+  }
+
+  .project-card {
+    border-color: rgba(211, 204, 192, 0.72);
+    background: rgba(255, 255, 255, 0.94);
+  }
+
+  .project-image {
+    border-bottom: 1px solid rgba(37, 42, 48, 0.08);
+    background-size: 100% 100%;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  .project-image span {
+    color: rgba(28, 36, 46, 0.82);
+    font-weight: 900;
+  }
+
+  .visual-mockup,
+  .visual-wall,
+  .visual-chart,
+  .visual-nodes {
+    filter: contrast(1.08) saturate(1.04);
+  }
+
+  .visual-mockup,
+  .mockup-hero,
+  .visual-chart {
+    border-color: rgba(37, 42, 48, 0.16);
+    background: rgba(255, 255, 255, 0.82);
+  }
+
+  .mockup-browser i,
+  .mockup-grid i,
+  .visual-wall i,
+  .visual-nodes i {
+    border-color: rgba(37, 42, 48, 0.14);
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.86),
+      0 8px 18px rgba(72, 76, 80, 0.08);
+  }
+
+  .mockup-hero b {
+    background: rgba(75, 90, 105, 0.2);
+  }
+
+  .mockup-hero b:nth-child(2) {
+    background: rgba(104, 126, 138, 0.2);
+  }
+
+  .mockup-hero b:nth-child(3) {
+    background: rgba(156, 145, 124, 0.2);
+  }
+
+  .visual-wall i:nth-child(2n) {
+    background: rgba(237, 232, 222, 0.9);
+  }
+
+  .visual-wall i:nth-child(3n) {
+    background: rgba(226, 234, 236, 0.9);
+  }
+
+  .visual-chart i {
+    background: linear-gradient(180deg, rgba(96, 116, 132, 0.62), rgba(181, 190, 188, 0.44));
+  }
+
+  .chart-line,
+  .visual-nodes::before,
+  .visual-nodes::after {
+    background: rgba(74, 88, 102, 0.34);
+  }
+
+  .visual-nodes i::after {
+    background: rgba(76, 88, 102, 0.2);
+  }
+
+  .contact-modal {
+    padding-top: 20px;
+  }
+
+  .contact-modal-header {
+    padding-right: 42px;
+  }
+
+  .contact-modal-list {
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .contact-modal-list div {
+    padding: 13px 15px;
+  }
+
+  .wechat-qr-card {
+    padding: 8px;
+  }
+
+  .wechat-qr-card figcaption {
+    margin-bottom: 6px;
+  }
+
+  .wechat-qr-card p {
+    margin-top: 7px;
+  }
+
+  .contact-email-line {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header.menu-open .nav-links {
+    gap: 9px;
+    padding: 12px;
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(249, 246, 239, 0.92)),
+      rgba(255, 255, 255, 0.95);
+  }
+
+  .site-header .nav-links a {
+    min-height: 46px;
+  }
+
+  .section-heading h2,
+  .contact-content h2 {
+    font-size: clamp(2.125rem, 8.9vw, 2.38rem);
+    line-height: 1.15;
+  }
+
+  .project-image {
+    min-height: 226px;
+  }
+
+  .visual-mockup,
+  .visual-wall,
+  .visual-chart,
+  .visual-nodes,
+  .mockup-hero {
+    transform: scale(0.98);
+  }
+
+  .contact-modal-list div {
+    padding: 12px 14px;
+  }
+
+  .wechat-qr-card,
+  .wechat-qr-card img {
+    width: min(100%, 184px);
+  }
+}
