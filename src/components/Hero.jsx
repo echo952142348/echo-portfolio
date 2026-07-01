@@ -1,4 +1,11 @@
+import { scrollToSection } from '../utils/navigation'
+
 export default function Hero() {
+  const handleHeroAction = (event, href) => {
+    event.preventDefault()
+    scrollToSection(href)
+  }
+
   return (
     <section className="hero section-full" id="hero">
       <div className="hero-shell max-shell">
@@ -35,10 +42,10 @@ export default function Hero() {
                 这里是舒翔的个人作品集入口，用于展示项目实践、能力方向与阶段性成长。
               </p>
               <div className="hero-actions">
-                <a className="button primary" href="#projects">
+                <a className="button primary" href="#projects" onClick={(event) => handleHeroAction(event, '#projects')}>
                   查看作品
                 </a>
-                <a className="button secondary" href="#contact">
+                <a className="button secondary" href="#contact" onClick={(event) => handleHeroAction(event, '#contact')}>
                   联系我
                 </a>
               </div>

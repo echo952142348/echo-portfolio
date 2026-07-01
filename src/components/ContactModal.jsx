@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import wechatQr from '../assets/wechat-qr.png'
+import { useOverlayHistory } from '../utils/navigation'
 
 const email = '952142348@qq.com'
 
@@ -23,6 +24,8 @@ function copyTextFallback(text) {
 
 export default function ContactModal({ open, onClose }) {
   const [copyMessage, setCopyMessage] = useState('')
+
+  useOverlayHistory(open, onClose, 'contact-modal')
 
   useEffect(() => {
     if (!open) return undefined
@@ -102,7 +105,7 @@ export default function ContactModal({ open, onClose }) {
             <dd>
               <figure className="wechat-qr-card">
                 <figcaption>扫码添加微信</figcaption>
-                <img src={wechatQr} alt="微信二维码" />
+                <img src={wechatQr} alt="微信二维码" loading="lazy" decoding="async" />
                 <p>添加时请备注：作品集</p>
               </figure>
             </dd>

@@ -20,7 +20,7 @@ export default function About() {
           <div className="profile-card glass-panel">
             {/* TODO: 后续可替换为真实头像、个人标签或更完整的身份信息。 */}
             <div className="profile-orb">
-              <img className="profile-avatar-image" src={avatar} alt="舒翔头像" />
+              <img className="profile-avatar-image" src={avatar} alt="舒翔头像" loading="lazy" decoding="async" />
             </div>
             <div className="profile-info">
               <p>个人档案</p>

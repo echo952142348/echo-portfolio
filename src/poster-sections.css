@@ -3161,3 +3161,147 @@ body,
   position: relative;
   z-index: 1;
 }
+
+/* Mobile performance pass: keep the cream-glass style while reducing costly paint work. */
+@media (max-width: 768px) {
+  .button,
+  .contact-note,
+  .mobile-menu-toggle,
+  .project-detail-link,
+  .project-modal-action,
+  .contact-modal-action,
+  .contact-email-line button {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+
+  .glass-panel,
+  .nav-shell,
+  .profile-card,
+  .about-content,
+  .project-card,
+  .strength-card,
+  .contact-panel,
+  .stat-card,
+  .contact-note,
+  .tag-row span {
+    box-shadow: 0 16px 42px rgba(63, 67, 70, 0.1);
+    backdrop-filter: blur(8px) saturate(1.01);
+  }
+
+  .hero .hero-showcase {
+    box-shadow:
+      0 22px 58px rgba(64, 75, 84, 0.13),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px) saturate(1.02);
+  }
+
+  .site-header.menu-open .nav-links {
+    box-shadow: 0 18px 46px rgba(63, 67, 70, 0.12);
+    backdrop-filter: blur(8px) saturate(1.01);
+  }
+
+  .project-modal-backdrop,
+  .contact-modal-backdrop {
+    background: rgba(45, 42, 38, 0.22);
+    backdrop-filter: blur(3px);
+    animation-duration: 0.18s;
+  }
+
+  .project-modal,
+  .contact-modal {
+    box-shadow:
+      0 20px 58px rgba(63, 67, 70, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.86);
+    backdrop-filter: blur(8px) saturate(1.02);
+    animation-duration: 0.2s;
+  }
+
+  .section-heading::after {
+    opacity: 0.035;
+  }
+
+  .hero::before {
+    opacity: 0.16;
+  }
+
+  .kinetic-title {
+    opacity: 0.45;
+  }
+
+  .soft-ring,
+  .showcase-cloud {
+    opacity: 0.42;
+    filter: none;
+  }
+
+  .hero-orb,
+  .hero-glass-chip,
+  .scene-sphere {
+    opacity: 0.58;
+    filter: none;
+  }
+
+  .profile-card::before,
+  .about-layout::before,
+  .contact::before {
+    opacity: 0.55;
+  }
+
+  .project-card,
+  .strength-card,
+  .button,
+  .contact-note,
+  .project-detail-link,
+  .project-modal-action,
+  .contact-modal-action {
+    transition:
+      opacity 0.18s ease,
+      transform 0.18s ease,
+      border-color 0.18s ease,
+      background-color 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+}
+
+@media (max-width: 480px) {
+  .glass-panel,
+  .nav-shell,
+  .profile-card,
+  .about-content,
+  .project-card,
+  .strength-card,
+  .contact-panel,
+  .stat-card {
+    box-shadow: 0 12px 32px rgba(63, 67, 70, 0.09);
+    backdrop-filter: blur(6px) saturate(1);
+  }
+
+  .project-modal-backdrop,
+  .contact-modal-backdrop {
+    background: rgba(45, 42, 38, 0.24);
+    backdrop-filter: none;
+  }
+
+  .project-modal,
+  .contact-modal {
+    backdrop-filter: blur(6px) saturate(1);
+  }
+
+  .kinetic-title,
+  .hero-orb,
+  .hero-glass-chip,
+  .sphere-dark-right,
+  .sphere-pearl-top {
+    display: none;
+  }
+
+  .soft-ring,
+  .showcase-cloud {
+    opacity: 0.28;
+  }
+
+  .contact::before {
+    opacity: 0.38;
+  }
+}

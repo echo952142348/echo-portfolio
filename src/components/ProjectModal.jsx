@@ -1,7 +1,10 @@
 import { useEffect } from 'react'
 import ProjectVisual from './ProjectVisual'
+import { useOverlayHistory } from '../utils/navigation'
 
 export default function ProjectModal({ project, onClose }) {
+  useOverlayHistory(Boolean(project), onClose, 'project-modal')
+
   useEffect(() => {
     if (!project) return undefined
 

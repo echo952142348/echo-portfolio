@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { scrollToSection, useOverlayHistory } from '../utils/navigation'
 
 const navItems = [
   { label: '首页', href: '#hero' },
@@ -10,6 +11,9 @@ const navItems = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const closeMenu = useCallback(() => setMenuOpen(false), [])
+
+  useOverlayHistory(menuOpen, closeMenu, 'mobile-menu')
 
   useEffect(() => {
     if (!menuOpen) return undefined
@@ -25,17 +29,30 @@ export default function Header() {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [menuOpen])
 
+  const handleNavClick = (event, href) => {
+    event.preventDefault()
+
+    if (menuOpen) {
+      closeMenu()
+      window.setTimeout(() => scrollToSection(href), 140)
+      return
+    }
+
+    scrollToSection(href)
+    closeMenu()
+  }
+
   return (
     <header className={`site-header ${menuOpen ? 'menu-open' : ''}`}>
       <nav className="nav-shell" aria-label="主导航">
-        <a className="brand" href="#hero" aria-label="返回首页" onClick={() => setMenuOpen(false)}>
+        <a className="brand" href="#hero" aria-label="返回首页" onClick={(event) => handleNavClick(event, '#hero')}>
           <span className="brand-mark">SX</span>
           <span>舒翔</span>
         </a>
 
         <div className="nav-links">
           {navItems.map((item) => (
-            <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
+            <a key={item.href} href={item.href} onClick={(event) => handleNavClick(event, item.href)}>
               {item.label}
             </a>
           ))}
@@ -53,7 +70,7 @@ export default function Header() {
           <span />
         </button>
 
-        <a className="nav-contact" href="#contact">
+        <a className="nav-contact" href="#contact" onClick={(event) => handleNavClick(event, '#contact')}>
           联系我
         </a>
       </nav>
