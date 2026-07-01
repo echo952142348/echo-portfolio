@@ -25,6 +25,14 @@ export default function ProjectModal({ project, onClose }) {
 
   if (!project) return null
 
+  const detailItems = [
+    ['项目背景', project.background],
+    ['我的职责', project.role],
+    ['工作流程', project.process],
+    ['使用工具', project.tools],
+    ['项目沉淀', project.takeaway],
+  ]
+
   return (
     <div className="project-modal-backdrop" onClick={onClose}>
       <div
@@ -49,19 +57,13 @@ export default function ProjectModal({ project, onClose }) {
               <p>{project.description}</p>
             </div>
 
-            <dl className="project-modal-grid">
-              <div>
-                <dt>我的职责</dt>
-                <dd>{project.role}</dd>
-              </div>
-              <div>
-                <dt>项目亮点</dt>
-                <dd>{project.highlight}</dd>
-              </div>
-              <div>
-                <dt>当前状态</dt>
-                <dd>{project.status}</dd>
-              </div>
+            <dl className="project-modal-grid project-modal-grid-ecommerce">
+              {detailItems.map(([title, content]) => (
+                <div key={title}>
+                  <dt>{title}</dt>
+                  <dd>{content}</dd>
+                </div>
+              ))}
             </dl>
 
             <div className="project-modal-tags">
