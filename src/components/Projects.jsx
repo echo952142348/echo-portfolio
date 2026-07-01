@@ -14,6 +14,7 @@ const projects = [
     tools: '淘宝后台、抖店后台、千牛、Excel、Word、美图秀秀',
     takeaway: '沉淀出商品信息检查清单，让页面维护更规范，也减少标题、图片和详情信息遗漏。',
     tags: ['商品上架', '标题优化', '主图维护'],
+    highlights: ['商品信息整理与标准化', '标题关键词优化思路', '页面维护与链接检查'],
     visual: 'listing',
   },
   {
@@ -27,6 +28,7 @@ const projects = [
     tools: '千牛、微信、淘宝后台、抖店后台、Excel',
     takeaway: '通过统一记录与节点跟进，让客户沟通、订单流转和售后反馈更有秩序，减少信息遗漏。',
     tags: ['客服沟通', '订单处理', '售后协同'],
+    highlights: ['客户咨询与需求确认', '订单处理与发货对接', '售后问题跟进'],
     visual: 'operations',
   },
   {
@@ -40,6 +42,7 @@ const projects = [
     tools: '淘宝后台、抖店后台、Excel、Word、微信',
     takeaway: '把活动执行过程拆成清晰节点，帮助报名、资料准备、执行跟进和复盘整理更有条理。',
     tags: ['活动配合', '流程执行', '复盘整理'],
+    highlights: ['活动资料准备', '执行节点跟进', '复盘内容整理'],
     visual: 'campaign',
   },
   {
@@ -53,6 +56,7 @@ const projects = [
     tools: 'ChatGPT、Excel、Word、剪映、美图秀秀',
     takeaway: '把 AI 输出转化为可检查、可复用的整理方法，让日常运营资料处理更清晰、更高效。',
     tags: ['AI 工具', '文案整理', '效率提升'],
+    highlights: ['AI 辅助标题与文案整理', '客服话术归纳', '工作流程提效'],
     visual: 'aiOps',
   },
 ]
@@ -80,13 +84,19 @@ export default function Projects() {
               {/* TODO: 后续可把 CSS 视觉占位替换为真实项目截图或封面图。 */}
               <ProjectVisual type={project.visual} label={`项目 0${index + 1}`} />
               <div className="project-body">
+                <span className="project-card-number">项目 0{index + 1}</span>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
                 <div className="tag-row">
                   {project.tags.map((tag) => (
                     <span key={tag}>{tag}</span>
                   ))}
                 </div>
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
+                <ul className="project-highlights" aria-label={`${project.title}项目亮点`}>
+                  {project.highlights.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
                 <button
                   className="project-detail-link"
                   type="button"
