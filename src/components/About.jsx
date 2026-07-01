@@ -13,7 +13,10 @@ export default function About() {
       <div className="max-shell">
         <div className="section-heading">
           <p className="eyebrow">关于我</p>
-          <h2>个人经历与当前方向</h2>
+          <h2 className="about-title">
+            <span>个人经历</span>
+            <span>与当前方向</span>
+          </h2>
         </div>
 
         <div className="about-layout">
