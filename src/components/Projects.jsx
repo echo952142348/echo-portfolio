@@ -5,6 +5,7 @@ import ProjectVisual from './ProjectVisual'
 const projects = [
   {
     title: '男装批发商品上架与链接维护',
+    cardTitle: '商品上架与链接维护',
     description: '围绕商品信息、标题关键词、主图详情页和链接展示进行日常维护，让商品页面更清晰、规范。',
     background:
       '围绕男装批发类目商品，完成日常商品链接上架、标题关键词整理、主图与详情页基础维护，并根据平台展示效果持续调整商品信息。',
@@ -19,6 +20,7 @@ const projects = [
   },
   {
     title: '店铺日常运营与订单协同流程',
+    cardTitle: '店铺运营与订单协同',
     description: '负责客户咨询、订单处理、售后跟进与发货库存对接，保障店铺日常运营稳定进行。',
     background:
       '店铺日常运营涉及客户咨询、订单确认、售后反馈和发货库存对接，需要让信息在多个环节之间流转清楚、处理及时。',
@@ -33,6 +35,7 @@ const projects = [
   },
   {
     title: '活动报名与流程执行',
+    cardTitle: '活动报名与流程执行',
     description: '配合店铺活动报名，整理活动资料、执行节点和复盘内容，让活动推进过程更清晰。',
     background:
       '围绕店铺活动报名与执行配合，需要提前整理商品资料、核对活动要求、跟进执行节点，并在活动后整理复盘内容。',
@@ -47,6 +50,7 @@ const projects = [
   },
   {
     title: 'AI 辅助电商运营效率提升',
+    cardTitle: 'AI 辅助运营效率提升',
     description: '尝试用 AI 辅助商品标题、卖点文案、客服话术和工作流程整理，提高日常运营效率。',
     background:
       '在日常电商运营中，尝试将 AI 工具用于标题思路、商品卖点、客服话术和表格内容整理，辅助提升资料整理效率。',
@@ -82,18 +86,18 @@ export default function Projects() {
           {projects.map((project, index) => (
             <article className="project-card glass-panel" key={project.title}>
               {/* TODO: 后续可把 CSS 视觉占位替换为真实项目截图或封面图。 */}
-              <ProjectVisual type={project.visual} label={`项目 0${index + 1}`} />
+                <ProjectVisual type={project.visual} label={`项目 0${index + 1}`} />
               <div className="project-body">
                 <span className="project-card-number">项目 0{index + 1}</span>
-                <h3>{project.title}</h3>
+                <h3>{project.cardTitle}</h3>
                 <p>{project.description}</p>
                 <div className="tag-row">
                   {project.tags.map((tag) => (
                     <span key={tag}>{tag}</span>
                   ))}
                 </div>
-                <ul className="project-highlights" aria-label={`${project.title}项目亮点`}>
-                  {project.highlights.map((item) => (
+                <ul className="project-highlights" aria-label={`${project.cardTitle}项目亮点`}>
+                  {project.highlights.slice(0, 2).map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
