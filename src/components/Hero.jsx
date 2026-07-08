@@ -8,6 +8,11 @@ export default function Hero() {
 
   return (
     <section className="hero section-full" id="hero">
+      <div className="hero-ambient" aria-hidden="true">
+        <span className="hero-ambient-orb hero-ambient-orb-1" />
+        <span className="hero-ambient-orb hero-ambient-orb-2" />
+        <span className="hero-ambient-orb hero-ambient-orb-3" />
+      </div>
       <div className="hero-shell max-shell">
         <div className="hero-showcase glass-panel">
           <div className="showcase-top">
