@@ -23,14 +23,16 @@ export default function Hero() {
       currentX += (targetX - currentX) * 0.12
       currentY += (targetY - currentY) * 0.12
 
-      hero.style.setProperty('--hero-parallax-x', currentX.toFixed(3))
-      hero.style.setProperty('--hero-parallax-y', currentY.toFixed(3))
-      hero.style.setProperty('--hero-parallax-strong-x', `${(currentX * 12).toFixed(2)}px`)
-      hero.style.setProperty('--hero-parallax-strong-y', `${(currentY * 12).toFixed(2)}px`)
-      hero.style.setProperty('--hero-parallax-medium-x', `${(currentX * 8).toFixed(2)}px`)
-      hero.style.setProperty('--hero-parallax-medium-y', `${(currentY * 8).toFixed(2)}px`)
-      hero.style.setProperty('--hero-parallax-soft-x', `${(currentX * 4).toFixed(2)}px`)
-      hero.style.setProperty('--hero-parallax-soft-y', `${(currentY * 4).toFixed(2)}px`)
+      hero.style.setProperty('--hero-parallax-left-x', `${(currentX * 12).toFixed(2)}px`)
+      hero.style.setProperty('--hero-parallax-left-y', `${(currentY * 12).toFixed(2)}px`)
+      hero.style.setProperty('--hero-parallax-top-x', `${(currentX * 8).toFixed(2)}px`)
+      hero.style.setProperty('--hero-parallax-top-y', `${(currentY * 8).toFixed(2)}px`)
+      hero.style.setProperty('--hero-parallax-front-x', `${(currentX * 18).toFixed(2)}px`)
+      hero.style.setProperty('--hero-parallax-front-y', `${(currentY * 18).toFixed(2)}px`)
+      hero.style.setProperty('--hero-parallax-small-x', `${(currentX * 4).toFixed(2)}px`)
+      hero.style.setProperty('--hero-parallax-small-y', `${(currentY * 4).toFixed(2)}px`)
+      hero.style.setProperty('--hero-parallax-tiny-x', `${(currentX * 3).toFixed(2)}px`)
+      hero.style.setProperty('--hero-parallax-tiny-y', `${(currentY * 3).toFixed(2)}px`)
 
       if (Math.abs(targetX - currentX) > 0.004 || Math.abs(targetY - currentY) > 0.004) {
         frameId = window.requestAnimationFrame(updateParallax)
@@ -69,14 +71,16 @@ export default function Hero() {
       hero.removeEventListener('pointermove', handlePointerMove)
       hero.removeEventListener('pointerleave', resetParallax)
       window.cancelAnimationFrame(frameId)
-      hero.style.removeProperty('--hero-parallax-x')
-      hero.style.removeProperty('--hero-parallax-y')
-      hero.style.removeProperty('--hero-parallax-strong-x')
-      hero.style.removeProperty('--hero-parallax-strong-y')
-      hero.style.removeProperty('--hero-parallax-medium-x')
-      hero.style.removeProperty('--hero-parallax-medium-y')
-      hero.style.removeProperty('--hero-parallax-soft-x')
-      hero.style.removeProperty('--hero-parallax-soft-y')
+      hero.style.removeProperty('--hero-parallax-left-x')
+      hero.style.removeProperty('--hero-parallax-left-y')
+      hero.style.removeProperty('--hero-parallax-top-x')
+      hero.style.removeProperty('--hero-parallax-top-y')
+      hero.style.removeProperty('--hero-parallax-front-x')
+      hero.style.removeProperty('--hero-parallax-front-y')
+      hero.style.removeProperty('--hero-parallax-small-x')
+      hero.style.removeProperty('--hero-parallax-small-y')
+      hero.style.removeProperty('--hero-parallax-tiny-x')
+      hero.style.removeProperty('--hero-parallax-tiny-y')
     }
   }, [])
 
@@ -87,15 +91,21 @@ export default function Hero() {
 
   return (
     <section className="hero section-full" id="hero" ref={heroRef}>
-      <div className="hero-ambient" aria-hidden="true">
-        <span className="hero-ambient-layer hero-ambient-layer-1">
-          <span className="hero-ambient-orb hero-ambient-orb-1" />
+      <div className="hero-sphere-scene" aria-hidden="true">
+        <span className="hero-sphere-layer hero-sphere-layer-left">
+          <span className="hero-sphere hero-sphere-left" />
         </span>
-        <span className="hero-ambient-layer hero-ambient-layer-2">
-          <span className="hero-ambient-orb hero-ambient-orb-2" />
+        <span className="hero-sphere-layer hero-sphere-layer-top">
+          <span className="hero-sphere hero-sphere-top" />
         </span>
-        <span className="hero-ambient-layer hero-ambient-layer-3">
-          <span className="hero-ambient-orb hero-ambient-orb-3" />
+        <span className="hero-sphere-layer hero-sphere-layer-front">
+          <span className="hero-sphere hero-sphere-front" />
+        </span>
+        <span className="hero-sphere-layer hero-sphere-layer-small">
+          <span className="hero-sphere hero-sphere-small" />
+        </span>
+        <span className="hero-sphere-layer hero-sphere-layer-tiny">
+          <span className="hero-sphere hero-sphere-tiny" />
         </span>
       </div>
       <div className="hero-shell max-shell">

@@ -5200,3 +5200,355 @@ body,
     will-change: auto !important;
   }
 }
+
+/* Rebuilt Hero scene: no static sphere background image, all main spheres are independent DOM. */
+@keyframes heroSphereLeftDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  34% {
+    transform: translate3d(14px, -19px, 0);
+  }
+
+  72% {
+    transform: translate3d(-7px, 8px, 0);
+  }
+}
+
+@keyframes heroSphereTopDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  38% {
+    transform: translate3d(-16px, 12px, 0);
+  }
+
+  76% {
+    transform: translate3d(6px, -5px, 0);
+  }
+}
+
+@keyframes heroSphereFrontDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  40% {
+    transform: translate3d(17px, -24px, 0) scale(1.015);
+  }
+
+  74% {
+    transform: translate3d(-7px, 8px, 0) scale(1.006);
+  }
+}
+
+@keyframes heroSphereSmallDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  44% {
+    transform: translate3d(-10px, -14px, 0);
+  }
+
+  78% {
+    transform: translate3d(5px, 6px, 0);
+  }
+}
+
+@keyframes heroSphereTinyDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  42% {
+    transform: translate3d(8px, 10px, 0);
+  }
+
+  72% {
+    transform: translate3d(-5px, -4px, 0);
+  }
+}
+
+.hero {
+  isolation: isolate;
+  background-image: none;
+  background:
+    radial-gradient(circle at 50% 16%, rgba(255, 255, 255, 0.9), transparent 22%),
+    radial-gradient(circle at 13% 78%, rgba(240, 215, 186, 0.28), transparent 22%),
+    radial-gradient(circle at 86% 38%, rgba(151, 162, 171, 0.13), transparent 24%),
+    linear-gradient(135deg, #f7f3ec 0%, #ebe7df 46%, #fbf8f3 100%);
+}
+
+.hero::before,
+.hero::after {
+  display: block;
+  position: absolute;
+  content: "";
+  pointer-events: none;
+}
+
+.hero::before {
+  left: 50%;
+  top: 51%;
+  z-index: 1;
+  width: min(64vw, 1120px);
+  height: min(62vh, 660px);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: clamp(32px, 3vw, 48px);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.16)),
+    rgba(255, 255, 255, 0.26);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.38),
+    0 42px 120px rgba(115, 110, 102, 0.13);
+  transform: translate3d(-50%, -48%, 0);
+  backdrop-filter: blur(11px) saturate(1.02);
+}
+
+.hero::after {
+  left: 50%;
+  bottom: 5.5%;
+  z-index: 0;
+  width: min(86vw, 1480px);
+  height: 92px;
+  border-radius: 999px;
+  background: radial-gradient(ellipse at center, rgba(90, 92, 91, 0.16), transparent 68%);
+  transform: translateX(-50%);
+}
+
+.hero-sphere-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-sphere-layer {
+  position: absolute;
+  display: block;
+  border-radius: 999px;
+  transition: transform 0.52s ease-out;
+}
+
+.hero-sphere {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: 999px;
+  animation-play-state: paused;
+  transform: translate3d(0, 0, 0);
+}
+
+.hero-sphere::after {
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: -14%;
+  height: 18%;
+  content: "";
+  border-radius: 999px;
+  background: radial-gradient(ellipse at center, rgba(42, 45, 49, 0.18), transparent 72%);
+  transform: scaleX(1.45);
+}
+
+.hero-sphere-layer-left {
+  left: 10.8%;
+  top: 38%;
+  z-index: 2;
+  width: clamp(150px, 13vw, 250px);
+  aspect-ratio: 1;
+  transform: translate3d(var(--hero-parallax-left-x, 0px), var(--hero-parallax-left-y, 0px), 0);
+}
+
+.hero-sphere-left {
+  background: radial-gradient(circle at 33% 28%, #eef1f3 0 9%, #a5b0ba 38%, #637484 76%, #3f4d5d 100%);
+  box-shadow:
+    inset -28px -32px 62px rgba(21, 31, 42, 0.26),
+    inset 22px 24px 54px rgba(255, 255, 255, 0.52),
+    0 30px 58px rgba(63, 73, 83, 0.14);
+  animation: heroSphereLeftDrift 14s ease-in-out infinite;
+  animation-delay: -5s;
+}
+
+.hero-sphere-layer-top {
+  right: 14%;
+  top: 8%;
+  z-index: 3;
+  width: clamp(110px, 9vw, 180px);
+  aspect-ratio: 1;
+  transform: translate3d(var(--hero-parallax-top-x, 0px), var(--hero-parallax-top-y, 0px), 0);
+}
+
+.hero-sphere-top {
+  background: radial-gradient(circle at 34% 28%, #fff9ef 0 10%, #ecd5ba 45%, #c9a47d 100%);
+  box-shadow:
+    inset -18px -22px 48px rgba(90, 70, 48, 0.16),
+    inset 16px 18px 42px rgba(255, 255, 255, 0.58),
+    0 26px 52px rgba(141, 115, 88, 0.13);
+  animation: heroSphereTopDrift 18s ease-in-out infinite;
+  animation-delay: -9s;
+}
+
+.hero-sphere-layer-front {
+  right: 3.4%;
+  bottom: 2.5%;
+  z-index: 3;
+  width: clamp(260px, 22vw, 430px);
+  aspect-ratio: 1;
+  transform: translate3d(var(--hero-parallax-front-x, 0px), var(--hero-parallax-front-y, 0px), 0);
+}
+
+.hero-sphere-front {
+  background: radial-gradient(circle at 34% 27%, #f0f3f5 0 10%, #aeb9c3 42%, #758594 72%, #536375 100%);
+  box-shadow:
+    inset -46px -52px 100px rgba(21, 31, 42, 0.23),
+    inset 34px 38px 90px rgba(255, 255, 255, 0.58),
+    0 36px 78px rgba(49, 58, 67, 0.16);
+  animation: heroSphereFrontDrift 16s ease-in-out infinite;
+  animation-delay: -7s;
+}
+
+.hero-sphere-layer-small {
+  left: 5%;
+  bottom: 20%;
+  z-index: 3;
+  width: clamp(72px, 6vw, 116px);
+  aspect-ratio: 1;
+  transform: translate3d(var(--hero-parallax-small-x, 0px), var(--hero-parallax-small-y, 0px), 0);
+}
+
+.hero-sphere-small {
+  border: 1px solid rgba(255, 255, 255, 0.84);
+  background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.42) 45%, rgba(203, 203, 200, 0.28) 100%);
+  box-shadow:
+    inset -9px -12px 26px rgba(46, 48, 50, 0.08),
+    inset 10px 12px 28px rgba(255, 255, 255, 0.66),
+    0 22px 42px rgba(88, 84, 78, 0.1);
+  backdrop-filter: blur(3px);
+  animation: heroSphereSmallDrift 12s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+.hero-sphere-layer-tiny {
+  right: 9%;
+  top: 31%;
+  z-index: 4;
+  width: clamp(36px, 3vw, 60px);
+  aspect-ratio: 1;
+  transform: translate3d(var(--hero-parallax-tiny-x, 0px), var(--hero-parallax-tiny-y, 0px), 0);
+}
+
+.hero-sphere-tiny {
+  background: radial-gradient(circle at 34% 30%, #dfe4e8 0 10%, #768594 60%, #354354 100%);
+  box-shadow:
+    inset -8px -9px 20px rgba(14, 20, 28, 0.24),
+    inset 7px 8px 18px rgba(255, 255, 255, 0.46),
+    0 18px 34px rgba(49, 58, 67, 0.12);
+  animation: heroSphereTinyDrift 11s ease-in-out infinite;
+  animation-delay: -6s;
+}
+
+.hero.is-visible .hero-sphere {
+  animation-play-state: running;
+}
+
+@media (pointer: fine) {
+  .hero.is-visible .hero-sphere-layer {
+    will-change: transform;
+  }
+}
+
+@media (max-width: 1180px) {
+  .hero::before {
+    width: min(78vw, 900px);
+    height: min(66vh, 620px);
+  }
+
+  .hero-sphere-layer-front {
+    right: -7%;
+    width: clamp(210px, 28vw, 320px);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero::before {
+    width: min(92vw, 560px);
+    height: min(68vh, 620px);
+    border-radius: 34px;
+    backdrop-filter: blur(5px) saturate(1);
+  }
+
+  .hero-sphere-layer-left {
+    left: auto;
+    right: 5%;
+    top: 15%;
+    width: clamp(96px, 28vw, 132px);
+    transform: none;
+  }
+
+  .hero-sphere-left {
+    animation-name: mobileAmbientDrift;
+    animation-duration: 18s;
+    animation-delay: -6s;
+    opacity: 0.58;
+  }
+
+  .hero-sphere-layer-tiny {
+    left: 8%;
+    right: auto;
+    top: 68%;
+    width: 42px;
+    transform: none;
+  }
+
+  .hero-sphere-tiny {
+    animation-name: mobileAmbientDrift;
+    animation-duration: 20s;
+    animation-delay: -10s;
+    opacity: 0.42;
+  }
+
+  .hero-sphere-layer-top,
+  .hero-sphere-layer-front,
+  .hero-sphere-layer-small {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero::before {
+    width: calc(100vw - 28px);
+    height: min(68vh, 590px);
+  }
+
+  .hero-sphere-layer-left {
+    right: -2%;
+    top: 13%;
+    width: 108px;
+  }
+
+  .hero-sphere-layer-tiny {
+    top: 72%;
+    width: 34px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-sphere-layer,
+  .hero-sphere {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+}
