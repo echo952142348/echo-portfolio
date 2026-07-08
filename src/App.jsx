@@ -33,7 +33,7 @@ function useAmbientSectionVisibility() {
       },
       {
         root: null,
-        rootMargin: '-38% 0px -38% 0px',
+        rootMargin: '-20% 0px -20% 0px',
         threshold: 0,
       },
     )
