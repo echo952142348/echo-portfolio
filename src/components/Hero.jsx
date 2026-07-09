@@ -118,7 +118,7 @@ export default function Hero() {
             </div>
             <div className="showcase-focus">
               <span />
-              聚焦 2026
+              求职中 · 电商运营
             </div>
           </div>
 
