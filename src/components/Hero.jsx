@@ -110,15 +110,32 @@ export default function Hero() {
       </div>
       <div className="hero-shell max-shell">
         <div className="hero-showcase glass-panel">
+          <div className="hero-refraction" aria-hidden="true" />
           <div className="showcase-top">
             <div className="showcase-pills">
-              <span>作品集</span>
-              <span>项目 04</span>
-              <span>能力 08</span>
+              <span>
+                <small>01 /</small>
+                PORTFOLIO
+              </span>
+              <span>
+                <small>02 /</small>
+                PROJECTS 04
+              </span>
+              <span>
+                <small>03 /</small>
+                CAPABILITIES 08
+              </span>
             </div>
             <div className="showcase-focus">
-              <span />
-              求职中 · 电商运营
+              <div className="focus-meta">
+                <span>CURRENT STATUS</span>
+                <small>01</small>
+              </div>
+              <div className="focus-status">
+                <i aria-hidden="true" />
+                <strong>求职开放</strong>
+              </div>
+              <p>ECOMMERCE OPERATIONS</p>
             </div>
           </div>
 
@@ -148,18 +165,28 @@ export default function Hero() {
                   联系我
                 </a>
               </div>
+              <div className="hero-meta-rail" aria-hidden="true">
+                <div>
+                  <span>LOCATION</span>
+                  <strong>HUANGSHAN → HEFEI</strong>
+                </div>
+                <div>
+                  <span>ROLE</span>
+                  <strong>ECOMMERCE OPERATIONS</strong>
+                </div>
+              </div>
             </div>
 
             <div className="hero-overview" aria-hidden="true">
               <div className="overview-status">
-                <span>作品集状态</span>
-                <strong>作品集持续更新中</strong>
-                <small>近期项目经验优先展示</small>
+                <span>LIVE ARCHIVE</span>
+                <strong>04 PROJECTS · 08 CAPABILITIES</strong>
+                <small>作品持续更新</small>
               </div>
               <div className="dashboard-tags">
-                <span>设计</span>
-                <span>数据</span>
-                <span>AI 工具</span>
+                <span>ECOMMERCE</span>
+                <span>OPERATIONS</span>
+                <span>AI TOOLS</span>
               </div>
             </div>
           </div>
