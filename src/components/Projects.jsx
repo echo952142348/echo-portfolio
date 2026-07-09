@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import ProjectModal from './ProjectModal'
 import ProjectVisual from './ProjectVisual'
+import SectionAmbientScene from './SectionAmbientScene'
 
 const projects = [
   {
@@ -70,6 +71,7 @@ export default function Projects() {
 
   return (
     <section className="section projects" id="projects">
+      <SectionAmbientScene variant="projects" />
       <div className="max-shell">
         <div className="section-heading split-heading">
           <div>

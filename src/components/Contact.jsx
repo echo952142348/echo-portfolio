@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import ContactModal from './ContactModal'
+import SectionAmbientScene from './SectionAmbientScene'
 
 export default function Contact() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
 
   return (
     <section className="contact section-full" id="contact">
+      <SectionAmbientScene variant="contact" />
       <div className="contact-shell max-shell">
         <div className="contact-content">
           <p className="eyebrow">联系我</p>

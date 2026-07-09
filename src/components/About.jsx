@@ -1,4 +1,5 @@
 import avatar from '../assets/avatar.jpg'
+import SectionAmbientScene from './SectionAmbientScene'
 
 const stats = [
   { value: '3+', label: '项目经验' },
@@ -10,6 +11,7 @@ const stats = [
 export default function About() {
   return (
     <section className="section about" id="about">
+      <SectionAmbientScene variant="about" />
       <div className="max-shell">
         <div className="section-heading">
           <p className="eyebrow">关于我</p>

@@ -1,3 +1,5 @@
+import SectionAmbientScene from './SectionAmbientScene'
+
 const strengths = [
   {
     title: '项目执行',
@@ -36,6 +38,7 @@ const strengths = [
 export default function Strengths() {
   return (
     <section className="section strengths" id="strengths">
+      <SectionAmbientScene variant="strengths" />
       <div className="max-shell">
         <div className="section-heading">
           <p className="eyebrow">优势能力</p>

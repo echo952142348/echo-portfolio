@@ -137,9 +137,8 @@ export default function Hero() {
 
           <div className="showcase-bottom">
             <div>
-              {/* TODO: 后续替换为更真实的个人定位与一句话介绍。 */}
               <p>
-                这里是舒翔的个人作品集入口，用于展示项目实践、能力方向与阶段性成长。
+                电商运营，主攻天猫/淘宝平台，擅长把流量、活动和转化率拧成一股绳做出结果——目前在找新的运营岗位机会。
               </p>
               <div className="hero-actions">
                 <a className="button primary" href="#projects" onClick={(event) => handleHeroAction(event, '#projects')}>
@@ -153,8 +152,8 @@ export default function Hero() {
 
             <div className="hero-overview" aria-hidden="true">
               <div className="overview-status">
-                <span>作品集状态</span>
-                <strong>持续整理中</strong>
+                <span>作品集持续更新中</span>
+                <strong>近期项目经验优先展示</strong>
                 <small>项目 / 能力 / 作品展示</small>
               </div>
               <div className="dashboard-tags">
