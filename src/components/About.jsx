@@ -50,7 +50,7 @@ export default function About() {
           <h3>
             专注电商运营实践，
             <br />
-            在执行、整理与优化中持续成长。
+            在执行、整理与优化中<span className="keep-phrase">持续成长</span>。
           </h3>
           <p>
             围绕商品维护、活动执行与订单协同持续积累经验，也在尝试用 AI 工具优化日常工作流程，

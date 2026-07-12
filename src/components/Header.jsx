@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { scrollToSection, useOverlayHistory } from '../utils/navigation'
 
 const navItems = [
@@ -20,6 +20,8 @@ const sectionMeta = {
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
+  const navRef = useRef(null)
+  const menuToggleRef = useRef(null)
   const closeMenu = useCallback(() => setMenuOpen(false), [])
 
   useOverlayHistory(menuOpen, closeMenu, 'mobile-menu')
@@ -30,12 +32,47 @@ export default function Header() {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         setMenuOpen(false)
+        menuToggleRef.current?.focus({ preventScroll: true })
+        return
+      }
+
+      if (event.key === 'Tab' && navRef.current) {
+        const focusable = Array.from(navRef.current.querySelectorAll('a[href], button:not([disabled])')).filter(
+          (element) => element instanceof HTMLElement && element.offsetParent !== null,
+        )
+
+        if (focusable.length === 0) return
+
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault()
+          last.focus({ preventScroll: true })
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault()
+          first.focus({ preventScroll: true })
+        }
+      }
+    }
+
+    const handlePointerDown = (event) => {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setMenuOpen(false)
       }
     }
 
     document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('pointerdown', handlePointerDown)
+    const focusTimer = window.setTimeout(() => {
+      navRef.current?.querySelector('.nav-links a')?.focus({ preventScroll: true })
+    }, 0)
 
-    return () => document.removeEventListener('keydown', handleKeyDown)
+    return () => {
+      window.clearTimeout(focusTimer)
+      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('pointerdown', handlePointerDown)
+    }
   }, [menuOpen])
 
   useEffect(() => {
@@ -122,14 +159,14 @@ export default function Header() {
 
   return (
     <header className={`site-header ${menuOpen ? 'menu-open' : ''} ${activeSection === 'hero' ? 'is-hero-active' : ''}`}>
-      <nav className="nav-shell" aria-label="主导航">
+      <nav className="nav-shell" ref={navRef} aria-label="主导航">
         <a className="brand" href="#hero" aria-label="返回首页" onClick={(event) => handleNavClick(event, '#hero')}>
           <span>SX</span>
           <small>/</small>
           <strong>PORTFOLIO</strong>
         </a>
 
-        <div className="nav-links">
+        <div className="nav-links" id="mobile-navigation-menu">
           {navItems.map((item) => (
             <a
               className={`${activeMeta.key === item.key ? 'is-active' : ''} ${item.menuOnly ? 'is-menu-extra' : ''}`}
@@ -144,9 +181,11 @@ export default function Header() {
 
         <button
           className="mobile-menu-toggle"
+          ref={menuToggleRef}
           type="button"
           aria-label={menuOpen ? '关闭菜单' : '打开菜单'}
           aria-expanded={menuOpen}
+          aria-controls="mobile-navigation-menu"
           onClick={() => setMenuOpen((open) => !open)}
         >
           <span />

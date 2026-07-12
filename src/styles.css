@@ -1325,10 +1325,6 @@ body {
   min-height: 100vh;
   padding: 0;
   overflow: hidden;
-  background-image: url("/images/hero-bg.png");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
 }
 
 .hero::before,
@@ -1930,10 +1926,6 @@ body {
   min-height: 100vh;
   padding: 0;
   overflow: hidden;
-  background-image: url("/images/hero-bg.png");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
 }
 
 .hero::before,

@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import wechatQr from '../assets/wechat-qr.png'
 import { useOverlayHistory } from '../utils/navigation'
 
 const email = '952142348@qq.com'
+const focusableSelector =
+  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
 function copyTextFallback(text) {
   const textarea = document.createElement('textarea')
@@ -24,24 +26,70 @@ function copyTextFallback(text) {
 
 export default function ContactModal({ open, onClose }) {
   const [copyMessage, setCopyMessage] = useState('')
+  const dialogRef = useRef(null)
+  const returnFocusRef = useRef(null)
 
   useOverlayHistory(open, onClose, 'contact-modal')
 
   useEffect(() => {
     if (!open) return undefined
 
+    returnFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
+
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         onClose()
+        return
+      }
+
+      if (event.key !== 'Tab' || !dialogRef.current) {
+        return
+      }
+
+      const focusable = Array.from(dialogRef.current.querySelectorAll(focusableSelector)).filter(
+        (element) => element instanceof HTMLElement && !element.hasAttribute('disabled'),
+      )
+
+      if (focusable.length === 0) {
+        event.preventDefault()
+        dialogRef.current.focus({ preventScroll: true })
+        return
+      }
+
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus({ preventScroll: true })
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus({ preventScroll: true })
       }
     }
+
+    const focusTimer = window.setTimeout(() => {
+      const firstFocusable = dialogRef.current?.querySelector(focusableSelector)
+      if (firstFocusable instanceof HTMLElement) {
+        firstFocusable.focus({ preventScroll: true })
+      } else {
+        dialogRef.current?.focus({ preventScroll: true })
+      }
+    }, 0)
 
     document.addEventListener('keydown', handleKeyDown)
     document.body.classList.add('modal-open')
 
     return () => {
+      window.clearTimeout(focusTimer)
       document.removeEventListener('keydown', handleKeyDown)
       document.body.classList.remove('modal-open')
+
+      window.setTimeout(() => {
+        if (returnFocusRef.current && document.contains(returnFocusRef.current)) {
+          returnFocusRef.current.focus({ preventScroll: true })
+        }
+      }, 0)
     }
   }, [open, onClose])
 
@@ -86,7 +134,9 @@ export default function ContactModal({ open, onClose }) {
       <div
         aria-modal="true"
         className="contact-modal glass-panel"
+        ref={dialogRef}
         role="dialog"
+        tabIndex={-1}
         onClick={(event) => event.stopPropagation()}
       >
         <button className="contact-modal-close" type="button" aria-label="关闭联系弹窗" onClick={onClose}>

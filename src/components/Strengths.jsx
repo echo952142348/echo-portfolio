@@ -57,7 +57,7 @@ export default function Strengths() {
           <h3>
             在实践中不断拓展与沉淀，
             <br />
-            构建可持续成长的能力体系。
+            构建<span className="keep-phrase">可持续成长</span>的能力体系。
           </h3>
           <p>
             围绕电商运营核心场景，沉淀 08 项能力方向，持续提升执行效率与业务质量。

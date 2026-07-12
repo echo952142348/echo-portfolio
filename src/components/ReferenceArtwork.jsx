@@ -1,66 +1,44 @@
-import refHero from '../assets/reference-art/ref-01-full.webp'
-import refAbout from '../assets/reference-art/ref-02-full.webp'
-import refProjects from '../assets/reference-art/ref-03-full.webp'
-import refStrengths from '../assets/reference-art/ref-04-full.webp'
-import refContact from '../assets/reference-art/ref-05-full.webp'
-import heroCleanVisual from '../assets/visual-art/hero-clean-visual.png'
-import aboutCleanVisual from '../assets/visual-art/about-clean-visual.png'
-import projectsCleanVisual from '../assets/visual-art/projects-clean-visual.png'
-import capabilitiesCleanVisual from '../assets/visual-art/capabilities-clean-visual.png'
-import contactCleanVisual from '../assets/visual-art/contact-clean-visual.png'
-import heroGlass from '../assets/visual-art/hero-glass-visual.webp'
-import heroSphere from '../assets/visual-art/hero-sphere-visual.webp'
-import heroCreamSphere from '../assets/visual-art/hero-cream-sphere-visual.webp'
-import aboutGlass from '../assets/visual-art/about-glass-visual.webp'
-import aboutCreamSphere from '../assets/visual-art/about-cream-sphere-visual.webp'
-import projectsGlass from '../assets/visual-art/projects-glass-visual.webp'
-import capabilitiesRing from '../assets/visual-art/capabilities-ring-visual.webp'
-import capabilitiesSphere from '../assets/visual-art/capabilities-sphere-visual.webp'
-import contactGlassBuilding from '../assets/visual-art/contact-building-visual.webp'
-import contactSphere from '../assets/visual-art/contact-sphere-visual.webp'
+import { useEffect, useState } from 'react'
+import heroCleanVisual from '../assets/visual-art/hero-clean-desktop.webp'
+import aboutCleanVisual from '../assets/visual-art/about-clean-desktop.webp'
+import projectsCleanVisual from '../assets/visual-art/projects-clean-desktop.webp'
+import capabilitiesCleanVisual from '../assets/visual-art/capabilities-clean-desktop.webp'
+import contactCleanVisual from '../assets/visual-art/contact-clean-desktop.webp'
+import heroCleanMobile from '../assets/visual-art/hero-clean-mobile.webp'
+import aboutCleanMobile from '../assets/visual-art/about-clean-mobile.webp'
+import projectsCleanMobile from '../assets/visual-art/projects-clean-mobile.webp'
+import capabilitiesCleanMobile from '../assets/visual-art/capabilities-clean-mobile.webp'
+import contactCleanMobile from '../assets/visual-art/contact-clean-mobile.webp'
 
 export const visualArtworkConfig = {
   hero: {
     cleanAsset: heroCleanVisual,
-    regionAssets: [
-      { src: heroGlass, className: 'reference-art-hero-glass' },
-      { src: heroSphere, className: 'reference-art-hero-sphere' },
-      { src: heroCreamSphere, className: 'reference-art-hero-cream' },
-    ],
+    mobileAsset: heroCleanMobile,
   },
   about: {
     cleanAsset: aboutCleanVisual,
-    regionAssets: [
-      { src: aboutGlass, className: 'reference-art-about-glass' },
-      { src: aboutCreamSphere, className: 'reference-art-about-cream' },
-    ],
+    mobileAsset: aboutCleanMobile,
   },
   projects: {
     cleanAsset: projectsCleanVisual,
-    regionAssets: [{ src: projectsGlass, className: 'reference-art-projects-glass' }],
+    mobileAsset: projectsCleanMobile,
   },
   capabilities: {
     cleanAsset: capabilitiesCleanVisual,
-    regionAssets: [
-      { src: capabilitiesRing, className: 'reference-art-capabilities-ring' },
-      { src: capabilitiesSphere, className: 'reference-art-capabilities-sphere' },
-    ],
+    mobileAsset: capabilitiesCleanMobile,
   },
   contact: {
     cleanAsset: contactCleanVisual,
-    regionAssets: [
-      { src: contactGlassBuilding, className: 'reference-art-contact-building' },
-      { src: contactSphere, className: 'reference-art-contact-sphere' },
-    ],
+    mobileAsset: contactCleanMobile,
   },
 }
 
-const calibrationMap = {
-  hero: refHero,
-  about: refAbout,
-  projects: refProjects,
-  strengths: refStrengths,
-  contact: refContact,
+const calibrationLoaders = {
+  hero: () => import('../assets/reference-art/ref-01-full.webp'),
+  about: () => import('../assets/reference-art/ref-02-full.webp'),
+  projects: () => import('../assets/reference-art/ref-03-full.webp'),
+  strengths: () => import('../assets/reference-art/ref-04-full.webp'),
+  contact: () => import('../assets/reference-art/ref-05-full.webp'),
 }
 
 const variantAliases = {
@@ -80,9 +58,35 @@ function getCalibrationOpacity() {
 export default function ReferenceArtwork({ variant }) {
   const artwork = visualArtworkConfig[variantAliases[variant] || variant]
   const calibrationOpacity = getCalibrationOpacity()
-  const calibrationSrc = calibrationMap[variant]
+  const [calibrationSrc, setCalibrationSrc] = useState('')
   const cleanAsset = artwork?.cleanAsset
-  const regionAssets = artwork?.regionAssets || []
+  const mobileAsset = artwork?.mobileAsset
+
+  useEffect(() => {
+    let isMounted = true
+
+    if (calibrationOpacity <= 0) {
+      setCalibrationSrc('')
+      return undefined
+    }
+
+    const loadCalibration = calibrationLoaders[variant]
+
+    if (!loadCalibration) {
+      setCalibrationSrc('')
+      return undefined
+    }
+
+    loadCalibration().then((module) => {
+      if (isMounted) {
+        setCalibrationSrc(module.default)
+      }
+    })
+
+    return () => {
+      isMounted = false
+    }
+  }, [calibrationOpacity, variant])
 
   return (
     <div
@@ -101,28 +105,21 @@ export default function ReferenceArtwork({ variant }) {
       ) : null}
       {cleanAsset ? (
         <picture className="reference-art-clean-source">
+          {mobileAsset ? <source media="(max-width: 1024px)" srcSet={mobileAsset} /> : null}
           <source media="(min-width: 1025px)" srcSet={cleanAsset} />
           <img
             className="reference-art-image reference-art-clean"
-            src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+            src={cleanAsset}
             alt=""
             draggable="false"
+            width="2048"
+            height="1152"
+            loading={variant === 'hero' ? 'eager' : 'lazy'}
             decoding="async"
+            fetchPriority={variant === 'hero' ? 'high' : 'auto'}
           />
         </picture>
       ) : null}
-      {cleanAsset
-        ? null
-        : regionAssets.map((item) => (
-            <img
-              className={`reference-art-image reference-art-region ${item.className}`}
-              src={item.src}
-              alt=""
-              key={item.src}
-              draggable="false"
-              decoding="async"
-            />
-          ))}
     </div>
   )
 }
