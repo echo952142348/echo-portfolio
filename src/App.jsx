@@ -7,6 +7,44 @@ import Strengths from './components/Strengths.jsx'
 import Contact from './components/Contact.jsx'
 
 const ambientSectionIds = ['hero', 'about', 'projects', 'strengths', 'contact']
+const DESIGN_WIDTH = 2048
+const DESIGN_HEIGHT = 1152
+
+function updateFidelityStageVars() {
+  if (typeof window === 'undefined') return
+
+  const viewportWidth = window.innerWidth
+  const viewportHeight = window.innerHeight
+  const scale = Math.max(viewportWidth / DESIGN_WIDTH, viewportHeight / DESIGN_HEIGHT)
+  const renderedWidth = DESIGN_WIDTH * scale
+  const renderedHeight = DESIGN_HEIGHT * scale
+  const offsetX = (viewportWidth - renderedWidth) / 2
+  const offsetY = (viewportHeight - renderedHeight) / 2
+  const rootStyle = document.documentElement.style
+
+  rootStyle.setProperty('--stage-scale', String(scale))
+  rootStyle.setProperty('--stage-x', `${offsetX}px`)
+  rootStyle.setProperty('--stage-y', `${offsetY}px`)
+  rootStyle.setProperty('--stage-rendered-width', `${renderedWidth}px`)
+  rootStyle.setProperty('--stage-rendered-height', `${renderedHeight}px`)
+}
+
+function useFidelityStage() {
+  useEffect(() => {
+    updateFidelityStageVars()
+
+    const observer = new ResizeObserver(updateFidelityStageVars)
+    observer.observe(document.documentElement)
+    window.addEventListener('resize', updateFidelityStageVars)
+    window.addEventListener('orientationchange', updateFidelityStageVars)
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', updateFidelityStageVars)
+      window.removeEventListener('orientationchange', updateFidelityStageVars)
+    }
+  }, [])
+}
 
 function useAmbientSectionVisibility() {
   useEffect(() => {
@@ -49,6 +87,7 @@ function useAmbientSectionVisibility() {
 
 export default function App() {
   useAmbientSectionVisibility()
+  useFidelityStage()
 
   return (
     <>

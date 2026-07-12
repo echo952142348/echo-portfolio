@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
+import './styles/visual-tokens.css'
 import './styles.css'
 import './hero-final.css'
 import './poster-sections.css'

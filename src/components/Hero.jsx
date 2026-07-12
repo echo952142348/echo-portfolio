@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import ReferenceArtwork from './ReferenceArtwork'
 import { scrollToSection } from '../utils/navigation'
 
 export default function Hero() {
@@ -91,6 +92,7 @@ export default function Hero() {
 
   return (
     <section className="hero section-full" id="hero" ref={heroRef}>
+      <ReferenceArtwork variant="hero" />
       <div className="hero-sphere-scene" aria-hidden="true">
         <span className="hero-sphere-layer hero-sphere-layer-left">
           <span className="hero-sphere hero-sphere-left" />
@@ -111,9 +113,18 @@ export default function Hero() {
       <div className="hero-shell max-shell">
         <div className="hero-showcase glass-panel">
           <div className="hero-refraction" aria-hidden="true" />
+          <div className="hero-name-backdrop" aria-hidden="true">
+            <span>SHU</span>
+            <span>XIANG</span>
+          </div>
+          <div className="hero-glass-sculpture" aria-hidden="true">
+            <span className="glass-ribbon glass-ribbon-a" />
+            <span className="glass-ribbon glass-ribbon-b" />
+            <span className="glass-ribbon glass-ribbon-c" />
+          </div>
           <div className="showcase-top">
             <div className="showcase-pills">
-              <span>
+              <span className="is-active">
                 <small>01 /</small>
                 PORTFOLIO
               </span>
@@ -155,14 +166,15 @@ export default function Hero() {
           <div className="showcase-bottom">
             <div>
               <p>
-                专注电商运营实践，围绕商品维护、活动执行与订单协同持续积累经验，也在尝试用 AI 工具优化日常工作流程——目前正在寻找新的电商运营岗位机会。
+                专注电商运营实践，围绕商品维护、活动执行与订单协同持续积累经验，
+                也在尝试用 AI 工具优化日常工作流程——目前正在寻找新的电商运营岗位机会。
               </p>
               <div className="hero-actions">
                 <a className="button primary" href="#projects" onClick={(event) => handleHeroAction(event, '#projects')}>
-                  查看作品
+                  查看作品 <span aria-hidden="true">→</span>
                 </a>
                 <a className="button secondary" href="#contact" onClick={(event) => handleHeroAction(event, '#contact')}>
-                  联系我
+                  联系我 <span aria-hidden="true">→</span>
                 </a>
               </div>
               <div className="hero-meta-rail" aria-hidden="true">
@@ -189,6 +201,17 @@ export default function Hero() {
                 <span>AI TOOLS</span>
               </div>
             </div>
+          </div>
+          <div className="scroll-cue" aria-hidden="true">
+            <span>SCROLL TO EXPLORE</span>
+            <strong>↓</strong>
+          </div>
+          <div className="hero-page-dots" aria-hidden="true">
+            <span className="is-active" />
+            <span />
+            <span />
+            <span />
+            <span />
           </div>
         </div>
       </div>
