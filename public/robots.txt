@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://echo-portfolio-2di.pages.dev/sitemap.xml
