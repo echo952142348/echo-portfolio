@@ -1,10 +1,31 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ContactModal from './ContactModal'
 import SectionAmbientScene from './SectionAmbientScene'
 import ReferenceArtwork from './ReferenceArtwork'
+import { contactEmail, copyEmailAddress, emailCopyFailureMessage, emailCopySuccessMessage } from '../utils/contact'
 
 export default function Contact() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
+  const [copyMessage, setCopyMessage] = useState('')
+
+  useEffect(() => {
+    if (!copyMessage) return undefined
+
+    const timer = window.setTimeout(() => {
+      setCopyMessage('')
+    }, 1800)
+
+    return () => window.clearTimeout(timer)
+  }, [copyMessage])
+
+  const handleCopyEmail = async () => {
+    try {
+      await copyEmailAddress()
+      setCopyMessage(emailCopySuccessMessage)
+    } catch {
+      setCopyMessage(emailCopyFailureMessage)
+    }
+  }
 
   return (
     <section className="contact section-full" id="contact">
@@ -32,9 +53,19 @@ export default function Contact() {
             </button>
           </div>
           <div className="contact-email">
-            <span className="mail-icon" aria-hidden="true" />
-            <strong>邮箱：</strong>
-            <a href="mailto:952142348@qq.com">952142348@qq.com</a>
+            <a className="contact-email-link" href={`mailto:${contactEmail}`}>
+              <span className="mail-icon" aria-hidden="true" />
+              <strong>邮箱：</strong>
+              <span>{contactEmail}</span>
+            </a>
+            <button className="contact-email-copy" type="button" onClick={handleCopyEmail}>
+              复制
+            </button>
+            {copyMessage ? (
+              <span className="contact-page-copy-toast" role="status" aria-live="polite">
+                {copyMessage}
+              </span>
+            ) : null}
           </div>
         </div>
 

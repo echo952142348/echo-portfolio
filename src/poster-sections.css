@@ -11748,3 +11748,135 @@ body {
     display: inline;
   }
 }
+
+/* Contact interaction hardening: decorative artwork never blocks mail/copy controls. */
+.reference-art-layer,
+.reference-art-layer *,
+.section-ambient-scene,
+.section-ambient-scene *,
+.contact-visual,
+.contact-visual *,
+.glass-building,
+.glass-band,
+.poster-sphere {
+  pointer-events: none !important;
+}
+
+.contact-email {
+  position: relative;
+}
+
+.contact-email-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+  pointer-events: auto;
+}
+
+.contact-email-link span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.mail-icon {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.contact-email-copy {
+  flex: 0 0 auto;
+  min-height: 34px;
+  padding: 0 13px;
+  border: 1px solid rgba(7, 26, 56, 0.13);
+  border-radius: 999px;
+  color: rgba(7, 26, 56, 0.7);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 560;
+  background: rgba(255, 255, 255, 0.36);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.contact-page-copy-toast {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 10px);
+  z-index: 8;
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 999px;
+  color: rgba(7, 26, 56, 0.72);
+  font-size: 0.8rem;
+  font-weight: 520;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 24px rgba(48, 43, 38, 0.08);
+  pointer-events: none;
+}
+
+@media (min-width: 1025px) {
+  .contact-email {
+    align-items: center !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .contact-email {
+    align-items: flex-start !important;
+  }
+
+  .contact-email-link {
+    flex: 1 1 auto;
+    gap: 10px;
+  }
+
+  .contact-email-copy {
+    min-height: 36px;
+    padding-inline: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-email-link {
+    width: 100%;
+  }
+
+  .contact-email-copy {
+    width: auto;
+  }
+
+  .contact-page-copy-toast {
+    position: static;
+    margin-top: 4px;
+  }
+}
+
+/* Modal performance guard: isolate scroll paint without changing visual geometry. */
+.project-modal-backdrop,
+.contact-modal-backdrop {
+  contain: layout paint style;
+}
+
+.project-modal,
+.contact-modal {
+  isolation: isolate;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.project-modal-layout,
+.project-modal-content,
+.project-modal-grid,
+.project-modal-visual,
+.project-modal-visual .project-image,
+.contact-modal-list {
+  contain: layout paint;
+}

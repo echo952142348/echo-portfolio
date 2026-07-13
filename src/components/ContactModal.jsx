@@ -1,28 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import wechatQr from '../assets/wechat-qr.png'
+import { contactEmail, copyEmailAddress, emailCopyFailureMessage, emailCopySuccessMessage } from '../utils/contact'
 import { useOverlayHistory } from '../utils/navigation'
 
-const email = '952142348@qq.com'
 const focusableSelector =
   'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-
-function copyTextFallback(text) {
-  const textarea = document.createElement('textarea')
-  textarea.value = text
-  textarea.setAttribute('readonly', '')
-  textarea.style.position = 'fixed'
-  textarea.style.left = '-9999px'
-  textarea.style.top = '0'
-  document.body.appendChild(textarea)
-  textarea.focus()
-  textarea.select()
-  const copied = document.execCommand('copy')
-  document.body.removeChild(textarea)
-
-  if (!copied) {
-    throw new Error('fallback copy failed')
-  }
-}
 
 export default function ContactModal({ open, onClose }) {
   const [copyMessage, setCopyMessage] = useState('')
@@ -111,19 +93,10 @@ export default function ContactModal({ open, onClose }) {
 
   const handleCopyEmail = async () => {
     try {
-      if (navigator.clipboard?.writeText) {
-        try {
-          await navigator.clipboard.writeText(email)
-        } catch {
-          copyTextFallback(email)
-        }
-      } else {
-        copyTextFallback(email)
-      }
-
-      setCopyMessage('邮箱已复制')
+      await copyEmailAddress()
+      setCopyMessage(emailCopySuccessMessage)
     } catch {
-      setCopyMessage('复制失败，请手动复制')
+      setCopyMessage(emailCopyFailureMessage)
     }
   }
 
@@ -163,7 +136,7 @@ export default function ContactModal({ open, onClose }) {
           <div>
             <dt>邮箱</dt>
             <dd className="contact-email-line">
-              <span>{email}</span>
+              <span>{contactEmail}</span>
               <button type="button" onClick={handleCopyEmail}>
                 复制
               </button>

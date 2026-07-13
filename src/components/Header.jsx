@@ -3,10 +3,10 @@ import { scrollToSection, useOverlayHistory } from '../utils/navigation'
 
 const sections = [
   { id: 'hero', label: 'PORTFOLIO', number: '01', href: '#hero', mobileLabel: '01 / PORTFOLIO' },
-  { id: 'about', label: 'ABOUT', number: '02', href: '#about', mobileLabel: 'ABOUT' },
-  { id: 'projects', label: 'PROJECTS', number: '03', href: '#projects', mobileLabel: '02 / PROJECTS' },
-  { id: 'strengths', label: 'CAPABILITIES', number: '04', href: '#strengths', mobileLabel: '03 / CAPABILITIES' },
-  { id: 'contact', label: 'CONTACT', number: '05', href: '#contact', mobileLabel: 'CONTACT' },
+  { id: 'about', label: 'ABOUT', number: '02', href: '#about', mobileLabel: '02 / ABOUT' },
+  { id: 'projects', label: 'PROJECTS', number: '03', href: '#projects', mobileLabel: '03 / PROJECTS' },
+  { id: 'strengths', label: 'CAPABILITIES', number: '04', href: '#strengths', mobileLabel: '04 / CAPABILITIES' },
+  { id: 'contact', label: 'CONTACT', number: '05', href: '#contact', mobileLabel: '05 / CONTACT' },
 ]
 
 const sectionMeta = Object.fromEntries(sections.map((section) => [section.id, section]))
@@ -14,9 +14,18 @@ const sectionMeta = Object.fromEntries(sections.map((section) => [section.id, se
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
+  const activeSectionRef = useRef('hero')
   const navRef = useRef(null)
   const menuToggleRef = useRef(null)
   const closeMenu = useCallback(() => setMenuOpen(false), [])
+  const setActiveSectionSafely = useCallback((sectionId) => {
+    if (activeSectionRef.current === sectionId) {
+      return
+    }
+
+    activeSectionRef.current = sectionId
+    setActiveSection(sectionId)
+  }, [])
 
   useOverlayHistory(menuOpen, closeMenu, 'mobile-menu')
 
@@ -84,6 +93,10 @@ export default function Header() {
     const updateActiveSection = () => {
       frameId = 0
 
+      if (document.body.classList.contains('modal-open')) {
+        return
+      }
+
       const marker = window.innerHeight * 0.42
       const current =
         sectionElements
@@ -91,7 +104,7 @@ export default function Header() {
           .at(-1) ?? sectionElements[0]
 
       if (current?.id) {
-        setActiveSection(current.id)
+        setActiveSectionSafely(current.id)
       }
     }
 
@@ -135,14 +148,14 @@ export default function Header() {
       window.removeEventListener('resize', requestActiveUpdate)
       window.cancelAnimationFrame(frameId)
     }
-  }, [])
+  }, [setActiveSectionSafely])
 
   const handleNavClick = (event, href) => {
     event.preventDefault()
     const targetId = href.replace('#', '')
 
     if (sectionMeta[targetId]) {
-      setActiveSection(targetId)
+      setActiveSectionSafely(targetId)
     }
 
     if (menuOpen) {
