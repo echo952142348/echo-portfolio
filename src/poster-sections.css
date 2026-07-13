@@ -6552,11 +6552,6 @@ body {
   border-radius: 999px;
 }
 
-.line-icon-target::after { content: "◎"; font-size: 1.2rem; }
-.line-icon-grid::after { content: "▦"; font-size: 1rem; }
-.line-icon-trend::after { content: "⌁"; font-size: 1.4rem; }
-.line-icon-spark::after { content: "✧"; font-size: 1.35rem; }
-
 .about-visual {
   position: relative;
   z-index: 2;
@@ -6893,15 +6888,6 @@ body {
   inset: 16px;
   border-radius: 3px;
 }
-
-.capability-icon-flag::after { content: "⚑"; font-size: 1.15rem; }
-.capability-icon-doc::after { content: "□"; font-size: 1.1rem; }
-.capability-icon-pie::after { content: "◔"; font-size: 1.25rem; }
-.capability-icon-eye::after { content: "⊙"; font-size: 1.25rem; }
-.capability-icon-tool::after { content: "▣"; font-size: 1rem; }
-.capability-icon-people::after { content: "⌁"; font-size: 1.3rem; }
-.capability-icon-book::after { content: "◇"; font-size: 1.1rem; }
-.capability-icon-ai::after { content: "AI"; font-size: 0.7rem; font-weight: 850; }
 
 .capability-item h3 {
   margin: 0 0 8px;
@@ -8551,17 +8537,6 @@ body {
     border-width: 1.4px;
   }
 
-  .capability-icon::after {
-    color: var(--ui-navy);
-    font-weight: 400;
-    transform: scale(0.9);
-  }
-
-  .capability-icon-ai::after {
-    font-weight: 620;
-    transform: scale(1);
-  }
-
   .capability-item h3 {
     margin: 0 0 8px;
     color: var(--ui-navy);
@@ -9594,16 +9569,6 @@ body {
   .capability-icon::before {
     inset: 14px !important;
     border-width: 1.2px !important;
-  }
-
-  .capability-icon::after {
-    transform: scale(0.78) !important;
-    font-weight: 400 !important;
-  }
-
-  .capability-icon-ai::after {
-    transform: scale(0.9) !important;
-    font-weight: 580 !important;
   }
 
   .capability-item h3 {
@@ -11660,38 +11625,97 @@ body {
   }
 }
 
-/* Desktop icon optical centering fix. Keeps layout, badge size, and mobile rules untouched. */
+/* Real SVG icon badges. The legacy glyph pseudo-elements are disabled. */
+.icon-badge {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+  box-sizing: border-box;
+  border-radius: 999px;
+  color: var(--ui-navy, var(--poster-navy));
+}
+
+.icon-badge::before,
+.icon-badge::after {
+  display: none !important;
+  content: none !important;
+}
+
+.icon-badge svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  transform: none;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.nav-label-mobile {
+  display: none;
+}
+
+.about-icon-badge {
+  border: 2px solid currentColor;
+  background: transparent;
+  box-shadow: none;
+}
+
 @media (min-width: 1025px) {
+  .nav-links {
+    gap: clamp(18px, 2.1vw, 38px) !important;
+  }
+
+  .nav-links a {
+    white-space: nowrap;
+    background: transparent !important;
+  }
+
+  .nav-label-desktop {
+    display: inline;
+  }
+
+  .nav-contact {
+    width: 10px !important;
+    min-width: 10px !important;
+    gap: 0 !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  .site-header.is-hero-active .nav-contact {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
   .about-ability {
+    display: grid !important;
+    grid-template-rows: 28px auto auto !important;
+    align-content: start !important;
     align-items: start !important;
   }
 
-  .line-icon,
-  .capability-icon {
-    display: grid !important;
-    place-items: center !important;
-    flex: 0 0 auto !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    line-height: 0 !important;
-    vertical-align: middle !important;
+  .about-icon-badge {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    justify-self: start !important;
+    align-self: start !important;
+    border: 1.4px solid currentColor !important;
+    background: transparent !important;
+    box-shadow: none !important;
   }
 
-  .line-icon::before,
-  .line-icon::after,
-  .capability-icon::before,
-  .capability-icon::after {
-    grid-area: 1 / 1 !important;
-  }
-
-  .line-icon::after,
-  .capability-icon::after {
-    display: block !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    line-height: 1 !important;
-    transform-box: fill-box;
-    transform-origin: center;
+  .about-icon-badge svg,
+  .capability-icon-badge svg {
+    width: 16px !important;
+    height: 16px !important;
   }
 
   .capability-item,
@@ -11699,56 +11723,28 @@ body {
     align-items: center !important;
   }
 
-  .capability-icon {
+  .capability-icon-badge {
     justify-self: center !important;
     align-self: center !important;
   }
+}
 
-  .line-icon-target::after {
-    transform: translate3d(0, -0.5px, 0);
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .nav-links {
+    gap: clamp(14px, 1.65vw, 24px) !important;
   }
 
-  .line-icon-grid::after {
-    transform: translate3d(0, -0.5px, 0);
+  .nav-links a {
+    font-size: 0.74rem !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .nav-label-desktop {
+    display: none;
   }
 
-  .line-icon-trend::after {
-    transform: translate3d(0, 0.8px, 0);
-  }
-
-  .line-icon-spark::after {
-    transform: translate3d(0.4px, -0.6px, 0);
-  }
-
-  .capability-icon-flag::after {
-    transform: translate3d(0.8px, -0.4px, 0) !important;
-  }
-
-  .capability-icon-doc::after {
-    transform: translate3d(0, -0.6px, 0) !important;
-  }
-
-  .capability-icon-pie::after {
-    transform: translate3d(0.4px, 0, 0) !important;
-  }
-
-  .capability-icon-eye::after {
-    transform: translate3d(0, -0.2px, 0) !important;
-  }
-
-  .capability-icon-tool::after {
-    transform: translate3d(0, -0.4px, 0) !important;
-  }
-
-  .capability-icon-people::after {
-    transform: translate3d(0.2px, 0.8px, 0) !important;
-  }
-
-  .capability-icon-book::after {
-    transform: translate3d(0, -0.3px, 0) !important;
-  }
-
-  .capability-icon-ai::after {
-    transform: translate3d(0, 0.2px, 0) !important;
+  .nav-label-mobile {
+    display: inline;
   }
 }

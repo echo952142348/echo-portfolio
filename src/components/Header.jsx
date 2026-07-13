@@ -1,21 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { scrollToSection, useOverlayHistory } from '../utils/navigation'
 
-const navItems = [
-  { label: '01 / PORTFOLIO', href: '#hero', key: 'portfolio' },
-  { label: 'ABOUT', href: '#about', key: 'portfolio', menuOnly: true },
-  { label: '02 / PROJECTS', href: '#projects', key: 'projects' },
-  { label: '03 / CAPABILITIES', href: '#strengths', key: 'capabilities' },
-  { label: 'CONTACT', href: '#contact', key: 'contact', menuOnly: true },
+const sections = [
+  { id: 'hero', label: 'PORTFOLIO', number: '01', href: '#hero', mobileLabel: '01 / PORTFOLIO' },
+  { id: 'about', label: 'ABOUT', number: '02', href: '#about', mobileLabel: 'ABOUT' },
+  { id: 'projects', label: 'PROJECTS', number: '03', href: '#projects', mobileLabel: '02 / PROJECTS' },
+  { id: 'strengths', label: 'CAPABILITIES', number: '04', href: '#strengths', mobileLabel: '03 / CAPABILITIES' },
+  { id: 'contact', label: 'CONTACT', number: '05', href: '#contact', mobileLabel: 'CONTACT' },
 ]
 
-const sectionMeta = {
-  hero: { key: 'portfolio', label: 'PORTFOLIO' },
-  about: { key: 'portfolio', label: 'ABOUT' },
-  projects: { key: 'projects', label: 'PROJECTS' },
-  strengths: { key: 'capabilities', label: 'CAPABILITIES' },
-  contact: { key: 'contact', label: 'CONTACT' },
-}
+const sectionMeta = Object.fromEntries(sections.map((section) => [section.id, section]))
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -76,11 +70,12 @@ export default function Header() {
   }, [menuOpen])
 
   useEffect(() => {
-    const sections = Object.keys(sectionMeta)
+    const sectionElements = sections
+      .map(({ id }) => id)
       .map((id) => document.getElementById(id))
       .filter(Boolean)
 
-    if (sections.length === 0) {
+    if (sectionElements.length === 0) {
       return undefined
     }
 
@@ -89,11 +84,11 @@ export default function Header() {
     const updateActiveSection = () => {
       frameId = 0
 
-      const marker = window.innerHeight * 0.34
+      const marker = window.innerHeight * 0.42
       const current =
-        sections
+        sectionElements
           .filter((section) => section.getBoundingClientRect().top <= marker)
-          .at(-1) ?? sections[0]
+          .at(-1) ?? sectionElements[0]
 
       if (current?.id) {
         setActiveSection(current.id)
@@ -127,12 +122,12 @@ export default function Header() {
       },
       {
         root: null,
-        rootMargin: '-35% 0px -45% 0px',
+        rootMargin: '-35% 0px -55% 0px',
         threshold: [0, 0.2, 0.45],
       },
     )
 
-    sections.forEach((section) => observer.observe(section))
+    sectionElements.forEach((section) => observer.observe(section))
 
     return () => {
       observer.disconnect()
@@ -144,6 +139,11 @@ export default function Header() {
 
   const handleNavClick = (event, href) => {
     event.preventDefault()
+    const targetId = href.replace('#', '')
+
+    if (sectionMeta[targetId]) {
+      setActiveSection(targetId)
+    }
 
     if (menuOpen) {
       closeMenu()
@@ -163,18 +163,20 @@ export default function Header() {
         <a className="brand" href="#hero" aria-label="返回首页" onClick={(event) => handleNavClick(event, '#hero')}>
           <span>SX</span>
           <small>/</small>
-          <strong>PORTFOLIO</strong>
+          <strong>{activeMeta.label}</strong>
         </a>
 
         <div className="nav-links" id="mobile-navigation-menu">
-          {navItems.map((item) => (
+          {sections.map((item) => (
             <a
-              className={`${activeMeta.key === item.key ? 'is-active' : ''} ${item.menuOnly ? 'is-menu-extra' : ''}`}
+              className={activeSection === item.id ? 'is-active' : ''}
               key={item.href}
               href={item.href}
+              aria-current={activeSection === item.id ? 'page' : undefined}
               onClick={(event) => handleNavClick(event, item.href)}
             >
-              {item.label}
+              <span className="nav-label-desktop">{item.number} / {item.label}</span>
+              <span className="nav-label-mobile">{item.mobileLabel}</span>
             </a>
           ))}
         </div>
@@ -193,8 +195,7 @@ export default function Header() {
           <span />
         </button>
 
-        <a className="nav-contact" href="#contact" onClick={(event) => handleNavClick(event, '#contact')}>
-          {activeMeta.label}
+        <a className="nav-contact" href="#contact" aria-label="Contact" onClick={(event) => handleNavClick(event, '#contact')}>
           <span />
         </a>
       </nav>

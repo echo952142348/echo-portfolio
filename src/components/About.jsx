@@ -1,5 +1,6 @@
 import SectionAmbientScene from './SectionAmbientScene'
 import ReferenceArtwork from './ReferenceArtwork'
+import IconBadge from './IconBadge'
 
 const stats = [
   { value: '2+', label: '年运营经验', meta: 'EXPERIENCE' },
@@ -70,7 +71,7 @@ export default function About() {
           <div className="about-ability-row">
             {aboutAbilities.map((item) => (
               <article className="about-ability" key={item.title}>
-                <span className={`line-icon line-icon-${item.icon}`} aria-hidden="true" />
+                <IconBadge name={item.icon} className={`line-icon line-icon-${item.icon} about-icon-badge`} />
                 <h4>{item.title}</h4>
                 <p>{item.text}</p>
               </article>

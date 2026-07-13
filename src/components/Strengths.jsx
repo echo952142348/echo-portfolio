@@ -1,5 +1,6 @@
 import SectionAmbientScene from './SectionAmbientScene'
 import ReferenceArtwork from './ReferenceArtwork'
+import IconBadge from './IconBadge'
 
 const strengths = [
   {
@@ -68,7 +69,7 @@ export default function Strengths() {
           {strengths.map((item, index) => (
             <article className={`strength-card capability-item strength-card-${String(index + 1).padStart(2, '0')}`} key={item.title}>
               <span className="capability-number">{String(index + 1).padStart(2, '0')}</span>
-              <i className={`capability-icon capability-icon-${item.icon}`} aria-hidden="true" />
+              <IconBadge name={item.icon} className={`capability-icon capability-icon-${item.icon} capability-icon-badge`} />
               <div>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
