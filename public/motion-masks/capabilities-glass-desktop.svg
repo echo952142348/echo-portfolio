@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <mask id="glass" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080">
+      <rect width="1920" height="1080" fill="black" />
+      <path d="M1908 132c-199-70-350 5-356 178-6 189 183 238 272 382 76 123 16 250-132 267" fill="none" stroke="white" stroke-width="150" stroke-linecap="round" />
+      <path d="M1784 214c-170 54-219 192-111 319 111 131 314 164 257 379" fill="none" stroke="white" stroke-width="118" stroke-linecap="round" />
+      <path d="M1918 438c-181 21-332 105-314 271 16 146 151 209 300 213" fill="none" stroke="white" stroke-width="102" stroke-linecap="round" />
+      <circle cx="1548" cy="868" r="56" fill="black" />
+      <rect x="0" y="0" width="1560" height="1080" fill="black" />
+    </mask>
+  </defs>
+  <rect width="1920" height="1080" fill="#ff00a8" mask="url(#glass)" />
+  <g mask="url(#glass)" fill="none" stroke="#00d8ff" stroke-width="5" stroke-linecap="round">
+    <path d="M1908 132c-199-70-350 5-356 178-6 189 183 238 272 382 76 123 16 250-132 267" />
+    <path d="M1784 214c-170 54-219 192-111 319 111 131 314 164 257 379" />
+    <path d="M1918 438c-181 21-332 105-314 271 16 146 151 209 300 213" />
+  </g>
+</svg>

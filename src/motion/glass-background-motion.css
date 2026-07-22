@@ -1,0 +1,620 @@
+.hero,
+.section.about,
+.section.projects,
+.section.strengths,
+.contact {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.glass-motion {
+  --glass-mask: var(--glass-mask-desktop);
+  --edge-primary-mask: var(--edge-primary-mask-desktop);
+  --edge-halo-mask: var(--edge-halo-mask-desktop);
+  --body-refraction-mask: var(--body-refraction-mask-desktop);
+  --hotspot-mask: var(--hotspot-mask-desktop);
+  --flow-duration: 6.2s;
+  --flow-delay-a: -1.24s;
+  --flow-delay-b: -4.34s;
+  --edge-core-opacity-a: 0.78;
+  --edge-core-opacity-b: 0.7;
+  --edge-halo-opacity-a: 0.2;
+  --edge-halo-opacity-b: 0.18;
+  --dispersion-opacity-a: 0.24;
+  --dispersion-opacity-b: 0.216;
+  --body-opacity-a: 0.09;
+  --body-opacity-b: 0.082;
+  --hotspot-opacity-a: 0.76;
+  --hotspot-opacity-b: 0.68;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  width: 2048px;
+  height: 1152px;
+  overflow: hidden;
+  transform: translate3d(var(--stage-x, 0px), var(--stage-y, 0px), 0) scale(var(--stage-scale, 1));
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+.glass-motion__masked,
+.glass-motion__mask-debug {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.glass-motion__masked,
+.glass-edge-system,
+.glass-edge-layer,
+.glass-light-plane-debug {
+  overflow: hidden;
+}
+
+.glass-edge-system,
+.glass-edge-layer,
+.glass-track,
+.glass-light-plane,
+.glass-light-plane-debug,
+.glass-light-plane-debug__boundary {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.glass-edge-system,
+.glass-edge-layer,
+.glass-light-plane-debug,
+.glass-track {
+  inset: 0;
+}
+
+.glass-edge-layer {
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-mode: alpha;
+  mask-mode: alpha;
+}
+
+.glass-edge-layer--body {
+  z-index: 0;
+  -webkit-mask-image: var(--body-refraction-mask);
+  mask-image: var(--body-refraction-mask);
+}
+
+.glass-edge-layer--halo {
+  z-index: 1;
+  -webkit-mask-image: var(--edge-halo-mask);
+  mask-image: var(--edge-halo-mask);
+}
+
+.glass-edge-layer--dispersion {
+  z-index: 2;
+  -webkit-mask-image: var(--edge-primary-mask);
+  mask-image: var(--edge-primary-mask);
+}
+
+.glass-edge-layer--primary {
+  z-index: 3;
+  -webkit-mask-image: var(--edge-primary-mask);
+  mask-image: var(--edge-primary-mask);
+}
+
+.glass-edge-layer--hotspot {
+  z-index: 4;
+  -webkit-mask-image: var(--hotspot-mask);
+  mask-image: var(--hotspot-mask);
+}
+
+.glass-track {
+  will-change: transform;
+  animation: glassEdgeFlowDown var(--flow-duration) linear infinite;
+}
+
+.glass-track--a {
+  animation-delay: calc(var(--flow-delay-a) + var(--layer-delay, 0s));
+}
+
+.glass-track--b {
+  animation-delay: calc(var(--flow-delay-b) + var(--layer-delay, 0s));
+}
+
+.glass-edge-layer--dispersion .glass-track {
+  --layer-delay: 0.065s;
+}
+
+.glass-edge-layer--body .glass-track {
+  --layer-delay: 0.12s;
+}
+
+.glass-edge-layer--hotspot .glass-track {
+  --layer-delay: 0.025s;
+}
+
+.glass-light-plane {
+  left: 0;
+  right: 0;
+  top: 12%;
+  height: 76%;
+  transform-origin: 50% 50%;
+}
+
+.glass-light-plane--edge-core {
+  opacity: var(--edge-core-opacity-a);
+  background: linear-gradient(
+    to bottom,
+    transparent 19%,
+    rgba(255, 255, 255, 0) 34%,
+    rgba(255, 255, 255, 0.36) 43%,
+    rgba(255, 255, 255, 0.98) 48%,
+    rgba(255, 250, 240, 0.72) 51%,
+    rgba(255, 255, 255, 0.25) 57%,
+    rgba(255, 255, 255, 0) 67%,
+    transparent 100%
+  );
+  filter: blur(0.65px);
+}
+
+.glass-light-plane--warm-halo {
+  opacity: var(--edge-halo-opacity-a);
+  background: linear-gradient(
+    to bottom,
+    transparent 16%,
+    rgba(255, 249, 235, 0) 29%,
+    rgba(255, 246, 226, 0.28) 39%,
+    rgba(255, 241, 211, 0.76) 48%,
+    rgba(255, 248, 231, 0.38) 59%,
+    rgba(255, 249, 238, 0) 72%,
+    transparent 100%
+  );
+  filter: blur(9px);
+}
+
+.glass-light-plane--blue-dispersion {
+  opacity: var(--dispersion-opacity-a);
+  background: linear-gradient(
+    to bottom,
+    transparent 22%,
+    rgba(78, 112, 143, 0) 38%,
+    rgba(78, 112, 143, 0.34) 45%,
+    rgba(116, 151, 181, 0.72) 50%,
+    rgba(83, 119, 151, 0.26) 56%,
+    rgba(83, 119, 151, 0) 66%,
+    transparent 100%
+  );
+  filter: blur(1px);
+  transform: translate3d(1.5px, 3px, 0);
+}
+
+.glass-light-plane--body-caustic {
+  opacity: var(--body-opacity-a);
+  background:
+    radial-gradient(ellipse 30% 17% at 67% 46%, rgba(255, 255, 255, 0.78), rgba(112, 151, 183, 0.22) 45%, transparent 72%),
+    radial-gradient(ellipse 20% 13% at 79% 55%, rgba(255, 241, 214, 0.54), rgba(255, 255, 255, 0) 70%),
+    linear-gradient(
+      to bottom,
+      transparent 25%,
+      rgba(255, 255, 255, 0) 38%,
+      rgba(255, 255, 255, 0.46) 46%,
+      rgba(110, 149, 180, 0.16) 53%,
+      rgba(255, 244, 220, 0.14) 59%,
+      transparent 70%
+    );
+  filter: blur(21px);
+  transform: translate3d(0, 4px, 0) scaleX(0.98);
+}
+
+.glass-light-plane--hotspot {
+  opacity: var(--hotspot-opacity-a);
+  background: linear-gradient(
+    to bottom,
+    transparent 42%,
+    rgba(255, 255, 255, 0) 46%,
+    rgba(255, 255, 255, 0.95) 49%,
+    rgba(255, 247, 228, 0.9) 51%,
+    rgba(255, 255, 255, 0.18) 54%,
+    transparent 58%
+  );
+  filter: blur(0.8px);
+}
+
+.glass-track--a .glass-light-plane--edge-core {
+  transform: scaleY(0.94);
+}
+
+.glass-track--b .glass-light-plane--edge-core {
+  opacity: var(--edge-core-opacity-b);
+  transform: scaleY(1.09);
+}
+
+.glass-track--b .glass-light-plane--warm-halo {
+  opacity: var(--edge-halo-opacity-b);
+  transform: scaleY(1.12);
+}
+
+.glass-track--b .glass-light-plane--blue-dispersion {
+  opacity: var(--dispersion-opacity-b);
+  transform: translate3d(1.5px, 3px, 0) scaleY(1.1);
+}
+
+.glass-track--b .glass-light-plane--body-caustic {
+  opacity: var(--body-opacity-b);
+  transform: translate3d(0, 4px, 0) scaleX(1.03) scaleY(1.14);
+}
+
+.glass-track--b .glass-light-plane--hotspot {
+  opacity: var(--hotspot-opacity-b);
+  transform: scaleY(1.08);
+}
+
+.glass-motion--portfolio {
+  --flow-duration: 6.2s;
+  --flow-delay-a: -1.24s;
+  --flow-delay-b: -4.34s;
+}
+
+.glass-motion--about {
+  --flow-duration: 6.6s;
+  --flow-delay-a: -1.32s;
+  --flow-delay-b: -4.62s;
+  --edge-core-opacity-a: 0.74;
+  --edge-core-opacity-b: 0.67;
+  --edge-halo-opacity-a: 0.22;
+  --edge-halo-opacity-b: 0.195;
+  --dispersion-opacity-a: 0.22;
+  --dispersion-opacity-b: 0.198;
+  --body-opacity-a: 0.1;
+  --body-opacity-b: 0.09;
+}
+
+.glass-motion--about .glass-edge-layer--body .glass-track {
+  --layer-delay: 0.145s;
+}
+
+.glass-motion--projects {
+  --flow-duration: 6.4s;
+  --flow-delay-a: -1.28s;
+  --flow-delay-b: -4.48s;
+  --edge-core-opacity-a: 0.72;
+  --edge-core-opacity-b: 0.65;
+  --edge-halo-opacity-a: 0.18;
+  --edge-halo-opacity-b: 0.162;
+  --dispersion-opacity-a: 0.21;
+  --dispersion-opacity-b: 0.19;
+  --body-opacity-a: 0.08;
+  --body-opacity-b: 0.072;
+}
+
+.glass-motion--projects .glass-light-plane--body-caustic {
+  background:
+    radial-gradient(ellipse 36% 12% at 62% 46%, rgba(255, 255, 255, 0.7), rgba(106, 146, 179, 0.2) 48%, transparent 72%),
+    linear-gradient(to bottom, transparent 35%, rgba(255, 255, 255, 0.4) 48%, rgba(119, 154, 184, 0.12) 55%, transparent 68%);
+}
+
+.glass-motion--capabilities {
+  --flow-duration: 7s;
+  --flow-delay-a: -1.4s;
+  --flow-delay-b: -4.9s;
+  --edge-core-opacity-a: 0.8;
+  --edge-core-opacity-b: 0.72;
+  --edge-halo-opacity-a: 0.2;
+  --edge-halo-opacity-b: 0.18;
+  --dispersion-opacity-a: 0.26;
+  --dispersion-opacity-b: 0.234;
+  --body-opacity-a: 0.07;
+  --body-opacity-b: 0.063;
+}
+
+.glass-motion--capabilities .glass-light-plane--body-caustic {
+  background:
+    radial-gradient(ellipse 17% 25% at 89% 47%, rgba(255, 255, 255, 0.62), rgba(106, 147, 180, 0.2) 48%, transparent 75%),
+    linear-gradient(to bottom, transparent 30%, rgba(255, 255, 255, 0.28) 47%, rgba(103, 142, 174, 0.11) 55%, transparent 70%);
+}
+
+.glass-motion--contact {
+  --flow-duration: 6.8s;
+  --flow-delay-a: -1.36s;
+  --flow-delay-b: -4.76s;
+  --edge-core-opacity-a: 0.73;
+  --edge-core-opacity-b: 0.66;
+  --edge-halo-opacity-a: 0.22;
+  --edge-halo-opacity-b: 0.198;
+  --dispersion-opacity-a: 0.2;
+  --dispersion-opacity-b: 0.18;
+  --body-opacity-a: 0.1;
+  --body-opacity-b: 0.09;
+}
+
+.glass-motion--contact .glass-edge-layer--halo .glass-track {
+  --layer-delay: 0.05s;
+}
+
+.glass-motion--contact .glass-edge-layer--body .glass-track {
+  --layer-delay: 0.16s;
+}
+
+.glass-motion__mask-debug {
+  z-index: 20;
+  opacity: 0;
+}
+
+.glass-motion__mask-debug img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+body[data-glass-mask-debug] .glass-motion__mask-debug {
+  opacity: 0.3;
+}
+
+body[data-glass-mask-debug] .glass-edge-system {
+  opacity: 0.18;
+}
+
+.glass-edge-layer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+}
+
+body[data-glass-edge-debug] .glass-track {
+  visibility: hidden;
+}
+
+body[data-glass-edge-debug] .glass-edge-layer::after {
+  opacity: 0.72;
+}
+
+body[data-glass-edge-debug] .glass-edge-layer--primary::after,
+body[data-glass-edge-debug] .glass-edge-layer--dispersion::after {
+  background: #ff2b2b;
+}
+
+body[data-glass-edge-debug] .glass-edge-layer--halo::after {
+  background: #00d8ff;
+  opacity: 0.42;
+}
+
+body[data-glass-edge-debug] .glass-edge-layer--body::after {
+  background: #ffd900;
+  opacity: 0.46;
+}
+
+body[data-glass-edge-debug] .glass-edge-layer--hotspot::after {
+  background: #c000ff;
+  opacity: 0.88;
+}
+
+.glass-light-plane-debug {
+  z-index: 40;
+  display: none;
+}
+
+body[data-glass-light-plane-debug] .glass-light-plane-debug {
+  display: block;
+}
+
+.glass-light-plane-debug__track {
+  animation: glassEdgeFlowDown var(--flow-duration) linear infinite;
+}
+
+.glass-light-plane-debug__boundary {
+  left: 0;
+  right: 0;
+  top: 12%;
+  height: 76%;
+  background: linear-gradient(
+    to bottom,
+    transparent 43%,
+    rgba(22, 180, 146, 0.9) 44%,
+    rgba(22, 180, 146, 0.12) 45%,
+    rgba(22, 180, 146, 0.12) 55%,
+    rgba(22, 180, 146, 0.9) 56%,
+    transparent 57%
+  );
+}
+
+body[data-glass-motion-debug] .glass-motion {
+  --edge-core-opacity-a: 1;
+  --edge-core-opacity-b: 0.92;
+  --edge-halo-opacity-a: 0.29;
+  --edge-halo-opacity-b: 0.26;
+  --dispersion-opacity-a: 0.34;
+  --dispersion-opacity-b: 0.31;
+  --body-opacity-a: 0.14;
+  --body-opacity-b: 0.126;
+  --hotspot-opacity-a: 0.95;
+  --hotspot-opacity-b: 0.86;
+}
+
+.hero:not(.is-glass-motion-active) .glass-track,
+.section:not(.is-glass-motion-active) .glass-track,
+.contact:not(.is-glass-motion-active) .glass-track,
+body[data-glass-motion-paused] .glass-track,
+body[data-glass-motion-page] .glass-track {
+  animation-play-state: paused !important;
+}
+
+body[data-background-motion-off] .glass-motion,
+body[data-glass-motion-reduced] .glass-motion {
+  display: none !important;
+}
+
+@keyframes glassEdgeFlowDown {
+  from {
+    transform: translate3d(0, -110%, 0);
+  }
+
+  to {
+    transform: translate3d(0, 110%, 0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .glass-motion {
+    --glass-mask: var(--glass-mask-mobile);
+    --edge-primary-mask: var(--edge-primary-mask-mobile);
+    --edge-halo-mask: var(--edge-halo-mask-mobile);
+    --body-refraction-mask: var(--body-refraction-mask-mobile);
+    --hotspot-mask: var(--hotspot-mask-mobile);
+    --edge-core-opacity-a: 0.56;
+    --edge-core-opacity-b: 0.51;
+    --edge-halo-opacity-a: 0.14;
+    --edge-halo-opacity-b: 0.126;
+    --dispersion-opacity-a: 0.17;
+    --dispersion-opacity-b: 0.153;
+    --body-opacity-a: 0.07;
+    --body-opacity-b: 0.063;
+    --hotspot-opacity-a: 0.54;
+    --hotspot-opacity-b: 0.49;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: none;
+  }
+
+  .glass-motion--portfolio {
+    --flow-duration: 7s;
+    --flow-delay-a: -1.4s;
+    --flow-delay-b: -4.9s;
+  }
+
+  .glass-motion--about {
+    --flow-duration: 7.4s;
+    --flow-delay-a: -1.48s;
+    --flow-delay-b: -5.18s;
+  }
+
+  .glass-motion--projects {
+    --flow-duration: 7.2s;
+    --flow-delay-a: -1.44s;
+    --flow-delay-b: -5.04s;
+  }
+
+  .glass-motion--capabilities {
+    --flow-duration: 7.8s;
+    --flow-delay-a: -1.56s;
+    --flow-delay-b: -5.46s;
+  }
+
+  .glass-motion--contact {
+    --flow-duration: 7.6s;
+    --flow-delay-a: -1.52s;
+    --flow-delay-b: -5.32s;
+  }
+
+  .glass-motion__masked,
+  .glass-motion__mask-debug {
+    inset: auto;
+    height: auto;
+  }
+
+  .glass-motion--portfolio .glass-motion__masked,
+  .glass-motion--portfolio .glass-motion__mask-debug {
+    right: -72vw;
+    bottom: -2svh;
+    width: 164vw;
+    aspect-ratio: 3 / 2;
+  }
+
+  .glass-motion--about .glass-motion__masked,
+  .glass-motion--about .glass-motion__mask-debug {
+    right: -78vw;
+    bottom: -2svh;
+    width: 150vw;
+    aspect-ratio: 16 / 9;
+  }
+
+  .glass-motion--projects .glass-motion__masked,
+  .glass-motion--projects .glass-motion__mask-debug {
+    right: -88vw;
+    top: 3svh;
+    width: 154vw;
+    aspect-ratio: 16 / 9;
+  }
+
+  .glass-motion--capabilities .glass-motion__masked,
+  .glass-motion--capabilities .glass-motion__mask-debug {
+    right: -92vw;
+    bottom: 2svh;
+    width: 156vw;
+    aspect-ratio: 1200 / 676;
+  }
+
+  .glass-motion--contact .glass-motion__masked,
+  .glass-motion--contact .glass-motion__mask-debug {
+    right: -84vw;
+    bottom: -5svh;
+    width: 152vw;
+    aspect-ratio: 16 / 9;
+  }
+
+  .glass-light-plane--edge-core {
+    filter: blur(0.5px);
+  }
+
+  .glass-light-plane--warm-halo {
+    filter: blur(7px);
+  }
+
+  .glass-light-plane--body-caustic {
+    filter: blur(17px);
+  }
+
+  body[data-glass-motion-debug] .glass-motion {
+    --edge-core-opacity-a: 0.78;
+    --edge-core-opacity-b: 0.7;
+    --edge-halo-opacity-a: 0.2;
+    --edge-halo-opacity-b: 0.18;
+    --dispersion-opacity-a: 0.24;
+    --dispersion-opacity-b: 0.216;
+    --body-opacity-a: 0.1;
+    --body-opacity-b: 0.09;
+    --hotspot-opacity-a: 0.76;
+    --hotspot-opacity-b: 0.68;
+  }
+}
+
+@media (max-width: 480px) {
+  .glass-motion--portfolio .glass-motion__masked,
+  .glass-motion--portfolio .glass-motion__mask-debug {
+    right: -82vw;
+    bottom: 1svh;
+    width: 176vw;
+  }
+
+  .glass-motion--capabilities .glass-motion__masked,
+  .glass-motion--capabilities .glass-motion__mask-debug {
+    right: var(--capabilities-mobile-visual-right, 0px);
+    bottom: var(--capabilities-mobile-visual-bottom, 24px);
+    width: var(--capabilities-mobile-visual-width, 405vw);
+    aspect-ratio: 1200 / 676;
+  }
+
+  .glass-motion--contact .glass-motion__masked,
+  .glass-motion--contact .glass-motion__mask-debug {
+    right: -88vw;
+    bottom: -4svh;
+    width: 150vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-motion {
+    display: none !important;
+  }
+}

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <mask id="glass" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080">
+      <rect width="1920" height="1080" fill="black" />
+      <path fill="white" d="M825 500c160-132 314-234 471-321 154-85 281-158 390-219h234v190c-122 76-246 169-373 277-118 100-243 163-384 188-136 24-250-5-338-115Z" />
+      <path fill="white" d="M849 472c110-67 219-68 332 8l135 113c-87 72-180 99-285 80-110-20-194-88-252-142Z" />
+      <ellipse cx="1798" cy="424" rx="140" ry="145" fill="black" />
+      <circle cx="1570" cy="544" r="48" fill="black" />
+      <rect x="0" y="570" width="1920" height="510" fill="black" />
+    </mask>
+  </defs>
+  <rect width="1920" height="1080" fill="#ff00a8" mask="url(#glass)" />
+  <g mask="url(#glass)" fill="none" stroke="#00d8ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M825 500c160-132 314-234 471-321 154-85 281-158 390-219" />
+    <path d="M849 472c110-67 219-68 332 8l135 113c-87 72-180 99-285 80-110-20-194-88-252-142" />
+    <path d="M1200 458c129-45 239-125 347-220" />
+  </g>
+</svg>

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import ReferenceArtwork from './ReferenceArtwork'
+import GlassBackgroundMotion from '../motion/GlassBackgroundMotion'
 import { scrollToSection } from '../utils/navigation'
 
 export default function Hero() {
@@ -93,6 +94,11 @@ export default function Hero() {
   return (
     <section className="hero section-full" id="hero" ref={heroRef}>
       <ReferenceArtwork variant="hero" />
+      <GlassBackgroundMotion
+        variant="portfolio"
+        desktopMask="/motion-masks/portfolio-glass-desktop.svg"
+        mobileMask="/motion-masks/portfolio-glass-mobile.svg"
+      />
       <div className="hero-sphere-scene" aria-hidden="true">
         <span className="hero-sphere-layer hero-sphere-layer-left">
           <span className="hero-sphere hero-sphere-left" />

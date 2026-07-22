@@ -11613,8 +11613,22 @@ body {
     white-space: nowrap;
   }
 
+  .strengths {
+    --capabilities-mobile-visual-right: 0px;
+    --capabilities-mobile-visual-bottom: 24px;
+    --capabilities-mobile-visual-width: 405vw;
+  }
+
+  .strengths-page {
+    padding-bottom: calc(210vw + 48px) !important;
+  }
+
   .strengths .reference-art-clean {
-    display: none !important;
+    display: block !important;
+    right: var(--capabilities-mobile-visual-right) !important;
+    bottom: var(--capabilities-mobile-visual-bottom) !important;
+    width: var(--capabilities-mobile-visual-width) !important;
+    opacity: 0.24 !important;
   }
 
   .contact .reference-art-clean {

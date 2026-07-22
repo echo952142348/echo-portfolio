@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <mask id="glass" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080">
+      <rect width="1920" height="1080" fill="black" />
+      <path fill="white" d="M842 143 1280 38l507 76 1 817-303 45-263-27-344-13Z" />
+      <path fill="white" d="M742 610c337-67 666-64 1178-142v237c-365 24-744 92-1178 18Z" />
+      <path fill="white" d="M1039 338h340v605h-340Z" />
+      <circle cx="1830" cy="925" r="316" fill="black" />
+      <circle cx="1396" cy="1013" r="55" fill="black" />
+      <rect x="1310" y="160" width="520" height="450" rx="36" fill="black" />
+    </mask>
+  </defs>
+  <rect width="1920" height="1080" fill="#ff00a8" mask="url(#glass)" />
+  <g mask="url(#glass)" fill="none" stroke="#00d8ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M842 143 1280 38l507 76 1 817-303 45-263-27-344-13Z" />
+    <path d="M742 610c337-67 666-64 1178-142" />
+    <path d="M742 723c434 74 813 6 1178-18" />
+    <path d="M1039 338h340v605" />
+  </g>
+</svg>

@@ -1,6 +1,7 @@
 import SectionAmbientScene from './SectionAmbientScene'
 import ReferenceArtwork from './ReferenceArtwork'
 import IconBadge from './IconBadge'
+import GlassBackgroundMotion from '../motion/GlassBackgroundMotion'
 
 const stats = [
   { value: '2+', label: '年运营经验', meta: 'EXPERIENCE' },
@@ -42,6 +43,11 @@ export default function About() {
     <section className="section about" id="about">
       <SectionAmbientScene variant="about" />
       <ReferenceArtwork variant="about" />
+      <GlassBackgroundMotion
+        variant="about"
+        desktopMask="/motion-masks/about-glass-desktop.svg"
+        mobileMask="/motion-masks/about-glass-mobile.svg"
+      />
       <div className="max-shell poster-page about-page">
         <div className="poster-copy about-copy">
           <h2 className="poster-title">ABOUT</h2>

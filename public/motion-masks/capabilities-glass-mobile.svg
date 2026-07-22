@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 676">
+  <defs>
+    <mask id="glass" maskUnits="userSpaceOnUse" x="0" y="0" width="1200" height="676">
+      <rect width="1200" height="676" fill="black" />
+      <path d="M1160 70c-137-28-231 40-217 151 18 140 169 154 216 279 31 82-23 139-112 148" fill="none" stroke="white" stroke-width="108" stroke-linecap="round" />
+      <path d="M1074 122c-108 55-133 148-50 225 87 81 202 107 163 237" fill="none" stroke="white" stroke-width="82" stroke-linecap="round" />
+      <circle cx="972" cy="548" r="36" fill="black" />
+    </mask>
+  </defs>
+  <rect width="1200" height="676" fill="#ff00a8" mask="url(#glass)" />
+  <g mask="url(#glass)" fill="none" stroke="#00d8ff" stroke-width="4" stroke-linecap="round">
+    <path d="M1160 70c-137-28-231 40-217 151 18 140 169 154 216 279 31 82-23 139-112 148" />
+    <path d="M1074 122c-108 55-133 148-50 225 87 81 202 107 163 237" />
+  </g>
+</svg>

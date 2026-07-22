@@ -3,6 +3,7 @@ import ContactModal from './ContactModal'
 import SectionAmbientScene from './SectionAmbientScene'
 import ReferenceArtwork from './ReferenceArtwork'
 import { contactEmail, copyEmailAddress, emailCopyFailureMessage, emailCopySuccessMessage } from '../utils/contact'
+import GlassBackgroundMotion from '../motion/GlassBackgroundMotion'
 
 export default function Contact() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
@@ -31,6 +32,11 @@ export default function Contact() {
     <section className="contact section-full" id="contact">
       <SectionAmbientScene variant="contact" />
       <ReferenceArtwork variant="contact" />
+      <GlassBackgroundMotion
+        variant="contact"
+        desktopMask="/motion-masks/contact-glass-desktop.svg"
+        mobileMask="/motion-masks/contact-glass-mobile.svg"
+      />
       <div className="contact-shell max-shell poster-page contact-page">
         <div className="contact-content poster-copy contact-copy">
           <p className="poster-kicker">联系我</p>

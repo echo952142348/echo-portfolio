@@ -1,6 +1,7 @@
 import SectionAmbientScene from './SectionAmbientScene'
 import ReferenceArtwork from './ReferenceArtwork'
 import IconBadge from './IconBadge'
+import GlassBackgroundMotion from '../motion/GlassBackgroundMotion'
 
 const strengths = [
   {
@@ -50,6 +51,11 @@ export default function Strengths() {
     <section className="section strengths" id="strengths">
       <SectionAmbientScene variant="strengths" />
       <ReferenceArtwork variant="strengths" />
+      <GlassBackgroundMotion
+        variant="capabilities"
+        desktopMask="/motion-masks/capabilities-glass-desktop.svg"
+        mobileMask="/motion-masks/capabilities-glass-mobile.svg"
+      />
       <div className="max-shell poster-page strengths-page">
         <div className="poster-copy strengths-copy">
           <h2 className="poster-title">CAPABILITIES</h2>

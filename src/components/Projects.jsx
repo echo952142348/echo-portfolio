@@ -2,6 +2,7 @@ import { useState } from 'react'
 import ProjectModal from './ProjectModal'
 import SectionAmbientScene from './SectionAmbientScene'
 import ReferenceArtwork from './ReferenceArtwork'
+import GlassBackgroundMotion from '../motion/GlassBackgroundMotion'
 
 const projects = [
   {
@@ -77,6 +78,11 @@ export default function Projects() {
     <section className="section projects" id="projects">
       <SectionAmbientScene variant="projects" />
       <ReferenceArtwork variant="projects" />
+      <GlassBackgroundMotion
+        variant="projects"
+        desktopMask="/motion-masks/projects-glass-desktop.svg"
+        mobileMask="/motion-masks/projects-glass-mobile.svg"
+      />
       <div className="max-shell poster-page projects-page">
         <div className="poster-copy projects-copy">
           <h2 className="poster-title">PROJECTS</h2>

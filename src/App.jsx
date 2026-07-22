@@ -5,6 +5,7 @@ import About from './components/About.jsx'
 import Projects from './components/Projects.jsx'
 import Strengths from './components/Strengths.jsx'
 import Contact from './components/Contact.jsx'
+import { useGlassBackgroundMotion } from './motion/useGlassBackgroundMotion'
 
 const ambientSectionIds = ['hero', 'about', 'projects', 'strengths', 'contact']
 const DESIGN_WIDTH = 2048
@@ -88,6 +89,7 @@ function useAmbientSectionVisibility() {
 export default function App() {
   useAmbientSectionVisibility()
   useFidelityStage()
+  useGlassBackgroundMotion()
 
   return (
     <>

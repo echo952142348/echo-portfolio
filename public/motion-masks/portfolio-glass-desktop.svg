@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <mask id="glass" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080">
+      <rect width="1920" height="1080" fill="black" />
+      <path fill="white" d="M1180-40C1135 155 1100 335 1112 475c13 151 147 235 324 310 178 76 360 65 484-24V-40Z" />
+      <path fill="white" d="M414 1080c190-174 370-283 600-338 212-51 384-21 558 7 145 23 253 11 348-50v192c-177 18-320 3-463 1-240-4-432 64-633 188Z" />
+      <path fill="white" d="M1040 365c104 86 206 181 306 278l-120 155c-96-94-170-191-236-300Z" />
+      <ellipse cx="912" cy="815" rx="150" ry="145" fill="black" />
+      <circle cx="1788" cy="346" r="75" fill="black" />
+      <rect x="1550" y="38" width="340" height="160" rx="26" fill="black" />
+      <rect x="1290" y="815" width="460" height="180" rx="20" fill="black" />
+    </mask>
+  </defs>
+  <rect width="1920" height="1080" fill="#ff00a8" mask="url(#glass)" />
+  <g mask="url(#glass)" fill="none" stroke="#00d8ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1180-40C1135 155 1100 335 1112 475c13 151 147 235 324 310 178 76 360 65 484-24" />
+    <path d="M414 1080c190-174 370-283 600-338 212-51 384-21 558 7 145 23 253 11 348-50" />
+    <path d="M1040 365c104 86 206 181 306 278l-120 155" />
+  </g>
+</svg>
