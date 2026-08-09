@@ -1,17 +1,38 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import wechatQr from '../assets/wechat-qr.png'
 import { contactEmail, copyEmailAddress, emailCopyFailureMessage, emailCopySuccessMessage } from '../utils/contact'
 import { useOverlayHistory } from '../utils/navigation'
+import { prefersReducedMotion } from '../motion/useMotionPreference'
 
 const focusableSelector =
   'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
 export default function ContactModal({ open, onClose }) {
   const [copyMessage, setCopyMessage] = useState('')
+  const [isClosing, setIsClosing] = useState(false)
   const dialogRef = useRef(null)
   const returnFocusRef = useRef(null)
+  const closeTimerRef = useRef(0)
+  const closingRef = useRef(false)
 
-  useOverlayHistory(open, onClose, 'contact-modal')
+  const requestClose = useCallback(() => {
+    if (closingRef.current) return
+
+    if (prefersReducedMotion()) {
+      onClose()
+      return
+    }
+
+    closingRef.current = true
+    setIsClosing(true)
+    closeTimerRef.current = window.setTimeout(() => {
+      closingRef.current = false
+      setIsClosing(false)
+      onClose()
+    }, 230)
+  }, [onClose])
+
+  useOverlayHistory(open, requestClose, 'contact-modal')
 
   useEffect(() => {
     if (!open) return undefined
@@ -20,7 +41,7 @@ export default function ContactModal({ open, onClose }) {
 
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
-        onClose()
+        requestClose()
         return
       }
 
@@ -73,11 +94,14 @@ export default function ContactModal({ open, onClose }) {
         }
       }, 0)
     }
-  }, [open, onClose])
+  }, [open, requestClose])
 
   useEffect(() => {
     if (!open) {
       setCopyMessage('')
+      closingRef.current = false
+      setIsClosing(false)
+      window.clearTimeout(closeTimerRef.current)
     }
   }, [open])
 
@@ -103,7 +127,7 @@ export default function ContactModal({ open, onClose }) {
   if (!open) return null
 
   return (
-    <div className="contact-modal-backdrop" onClick={onClose}>
+    <div className={`contact-modal-backdrop ${isClosing ? 'is-closing' : ''}`} onClick={requestClose}>
       <div
         aria-modal="true"
         className="contact-modal glass-panel"
@@ -112,7 +136,7 @@ export default function ContactModal({ open, onClose }) {
         tabIndex={-1}
         onClick={(event) => event.stopPropagation()}
       >
-        <button className="contact-modal-close" type="button" aria-label="关闭联系弹窗" onClick={onClose}>
+        <button className="contact-modal-close" type="button" aria-label="关闭联系弹窗" onClick={requestClose}>
           ×
         </button>
 
@@ -150,7 +174,7 @@ export default function ContactModal({ open, onClose }) {
         </dl>
 
         <div className="contact-modal-footer">
-          <button className="contact-modal-action" type="button" onClick={onClose}>
+          <button className="contact-modal-action" type="button" onClick={requestClose}>
             关闭
           </button>
         </div>

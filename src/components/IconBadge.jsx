@@ -100,11 +100,11 @@ const icons = {
   ),
 }
 
-export default function IconBadge({ name, className = '' }) {
+export default function IconBadge({ name, className = '', ...props }) {
   const Icon = icons[name] ?? icons.target
 
   return (
-    <span className={`icon-badge ${className}`.trim()} aria-hidden="true">
+    <span className={`icon-badge ${className}`.trim()} aria-hidden="true" {...props}>
       <Icon />
     </span>
   )

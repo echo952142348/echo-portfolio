@@ -39,26 +39,26 @@ export default function Contact() {
       />
       <div className="contact-shell max-shell poster-page contact-page">
         <div className="contact-content poster-copy contact-copy">
-          <p className="poster-kicker">联系我</p>
-          <h2 className="poster-title">CONTACT</h2>
-          <h3>
-            让下一次交流，
+          <p className="poster-kicker" data-motion="fade-in">联系我</p>
+          <h2 className="poster-title" data-motion="mask-reveal" style={{ '--motion-delay-desktop': '65ms', '--motion-delay-mobile': '30ms' }}>CONTACT</h2>
+          <h3 data-motion="contact-statement" style={{ '--motion-delay-desktop': '135ms', '--motion-delay-mobile': '70ms' }}>
+            <span>让下一次交流，</span>
             <br />
-            从清晰开始。
+            <span>从清晰开始。</span>
           </h3>
-          <p>
-            如果你对我的项目、能力方向或后续合作感兴趣，可以通过下方预留方式联系我。
-            当前页面仍在持续完善，更多真实作品与资料会陆续补充。
+          <p data-motion="fade-in" style={{ '--motion-delay-desktop': '235ms', '--motion-delay-mobile': '120ms' }}>
+            如果你正在寻找一位重视执行、细节与协同的电商运营候选人，欢迎通过下方方式联系我。
+            当前求职方向为电商运营、店铺运营与商品运营，目标城市合肥。
           </p>
           <div className="contact-actions">
-            <button className="button primary" type="button" onClick={() => setIsContactModalOpen(true)}>
+            <button className="button primary" data-motion="fade-up" style={{ '--motion-delay-desktop': '315ms', '--motion-delay-mobile': '170ms' }} type="button" onClick={() => setIsContactModalOpen(true)}>
               联系我
             </button>
-            <button className="contact-note" type="button" onClick={() => setIsContactModalOpen(true)}>
+            <button className="contact-note" data-motion="fade-up" style={{ '--motion-delay-desktop': '355ms', '--motion-delay-mobile': '205ms' }} type="button" onClick={() => setIsContactModalOpen(true)}>
               微信：扫码添加
             </button>
           </div>
-          <div className="contact-email">
+          <div className="contact-email" data-motion="fade-up" style={{ '--motion-delay-desktop': '420ms', '--motion-delay-mobile': '245ms' }}>
             <a className="contact-email-link" href={`mailto:${contactEmail}`}>
               <span className="mail-icon" aria-hidden="true" />
               <strong>邮箱：</strong>
@@ -82,17 +82,23 @@ export default function Contact() {
           <span className="poster-sphere poster-sphere-contact" />
         </div>
 
-        <div className="contact-panel glass-panel">
-          <span className="contact-focus-label">可合作方向</span>
+        <div className="contact-panel glass-panel" data-motion="contact-panel" style={{ '--motion-delay-desktop': '520ms', '--motion-delay-mobile': '285ms' }}>
+          <span className="contact-focus-label">求职信息 / CAREER FOCUS</span>
           <strong className="contact-focus-title">
-            <span className="contact-focus-line">项目协作 / 内容整理</span>
-            <span className="contact-focus-line">数据表达 / AI 效率实践</span>
+            <span className="contact-focus-line">电商运营 / 店铺运营</span>
+            <span className="contact-focus-line">商品运营</span>
           </strong>
-          <p>
-            保持开放，持续迭代，
-            <br />
-            把想法变成更清晰的作品。
-          </p>
+          <dl className="contact-career-facts">
+            <div><dt>目标城市</dt><dd>合肥</dd></div>
+            <div><dt>当前状态</dt><dd>OPEN TO WORK</dd></div>
+            <div><dt>工作经验</dt><dd>2+ YEARS</dd></div>
+          </dl>
+          <div className="contact-platforms">
+            <span>PLATFORMS &amp; TOOLS</span>
+            <ul aria-label="熟悉的平台与工具">
+              {['淘宝', '1688', '抖店', '千牛', 'Excel', '微信', 'AI Tools'].map((tool) => <li key={tool}>{tool}</li>)}
+            </ul>
+          </div>
         </div>
       </div>
 

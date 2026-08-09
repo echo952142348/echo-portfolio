@@ -5,6 +5,7 @@ import About from './components/About.jsx'
 import Projects from './components/Projects.jsx'
 import Strengths from './components/Strengths.jsx'
 import Contact from './components/Contact.jsx'
+import { useMotionReveal } from './motion/useMotionReveal'
 import { useGlassBackgroundMotion } from './motion/useGlassBackgroundMotion'
 
 const ambientSectionIds = ['hero', 'about', 'projects', 'strengths', 'contact']
@@ -89,6 +90,7 @@ function useAmbientSectionVisibility() {
 export default function App() {
   useAmbientSectionVisibility()
   useFidelityStage()
+  useMotionReveal()
   useGlassBackgroundMotion()
 
   return (

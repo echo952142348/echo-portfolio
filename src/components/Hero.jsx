@@ -88,6 +88,7 @@ export default function Hero() {
 
   const handleHeroAction = (event, href) => {
     event.preventDefault()
+    window.dispatchEvent(new CustomEvent('motion:reveal-section', { detail: { id: href.replace('#', '') } }))
     scrollToSection(href)
   }
 
@@ -129,7 +130,7 @@ export default function Hero() {
             <span className="glass-ribbon glass-ribbon-c" />
           </div>
           <div className="showcase-top">
-            <div className="showcase-pills">
+            <div className="showcase-pills" data-motion="fade-up" style={{ '--motion-delay-desktop': '60ms', '--motion-delay-mobile': '20ms' }}>
               <span className="is-active">
                 <small>01 /</small>
                 PORTFOLIO
@@ -143,7 +144,7 @@ export default function Hero() {
                 CAPABILITIES 08
               </span>
             </div>
-            <div className="showcase-focus">
+            <div className="showcase-focus" data-motion="scale-soft" style={{ '--motion-delay-desktop': '110ms', '--motion-delay-mobile': '45ms' }}>
               <div className="focus-meta">
                 <span>CURRENT STATUS</span>
                 <small>01</small>
@@ -161,29 +162,31 @@ export default function Hero() {
             <div className="kinetic-title" aria-hidden="true">
               <span>Portfolio System · Personal Brand · Portfolio System · Personal Brand ·</span>
             </div>
-            <p className="eyebrow">个人品牌 / 作品集系统</p>
+            <p className="eyebrow" data-motion="fade-in" style={{ '--motion-delay-desktop': '100ms', '--motion-delay-mobile': '55ms' }}>
+              个人品牌 / 作品集系统
+            </p>
             <h1>
-              <span>让作品与能力</span>
-              <span>被清楚看见。</span>
+              <span data-motion="hero-line" style={{ '--motion-delay-desktop': '165ms', '--motion-delay-mobile': '90ms' }}>让作品与能力</span>
+              <span data-motion="hero-line" style={{ '--motion-delay-desktop': '225ms', '--motion-delay-mobile': '135ms' }}>被清楚看见。</span>
             </h1>
             <div className="showcase-cloud" aria-hidden="true" />
           </div>
 
           <div className="showcase-bottom">
             <div>
-              <p>
+              <p data-motion="fade-up" style={{ '--motion-delay-desktop': '300ms', '--motion-delay-mobile': '185ms' }}>
                 专注电商运营实践，围绕商品维护、活动执行与订单协同持续积累经验，
                 也在尝试用 AI 工具优化日常工作流程——目前正在寻找新的电商运营岗位机会。
               </p>
               <div className="hero-actions">
-                <a className="button primary" href="#projects" onClick={(event) => handleHeroAction(event, '#projects')}>
+                <a className="button primary" data-motion="fade-up" style={{ '--motion-delay-desktop': '375ms', '--motion-delay-mobile': '235ms' }} href="#projects" onClick={(event) => handleHeroAction(event, '#projects')}>
                   查看作品 <span aria-hidden="true">→</span>
                 </a>
-                <a className="button secondary" href="#contact" onClick={(event) => handleHeroAction(event, '#contact')}>
+                <a className="button secondary" data-motion="fade-up" style={{ '--motion-delay-desktop': '415ms', '--motion-delay-mobile': '270ms' }} href="#contact" onClick={(event) => handleHeroAction(event, '#contact')}>
                   联系我 <span aria-hidden="true">→</span>
                 </a>
               </div>
-              <div className="hero-meta-rail" aria-hidden="true">
+              <div className="hero-meta-rail" aria-hidden="true" data-motion="fade-up" style={{ '--motion-delay-desktop': '470ms', '--motion-delay-mobile': '315ms' }}>
                 <div>
                   <span>LOCATION</span>
                   <strong>HUANGSHAN → HEFEI</strong>
@@ -195,7 +198,7 @@ export default function Hero() {
               </div>
             </div>
 
-            <div className="hero-overview" aria-hidden="true">
+            <div className="hero-overview" aria-hidden="true" data-motion="fade-up" style={{ '--motion-delay-desktop': '520ms', '--motion-delay-mobile': '350ms' }}>
               <div className="overview-status">
                 <span>LIVE ARCHIVE</span>
                 <strong>04 PROJECTS · 08 CAPABILITIES</strong>
@@ -208,7 +211,7 @@ export default function Hero() {
               </div>
             </div>
           </div>
-          <div className="scroll-cue" aria-hidden="true">
+          <div className="scroll-cue" aria-hidden="true" data-motion="fade-in" style={{ '--motion-delay-desktop': '600ms', '--motion-delay-mobile': '390ms' }}>
             <span>SCROLL TO EXPLORE</span>
             <strong>↓</strong>
           </div>

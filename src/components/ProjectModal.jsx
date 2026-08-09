@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import ProjectVisual from './ProjectVisual'
 import { useOverlayHistory } from '../utils/navigation'
+import { prefersReducedMotion } from '../motion/useMotionPreference'
 
 const focusableSelector =
   'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
@@ -8,8 +9,39 @@ const focusableSelector =
 export default function ProjectModal({ project, onClose }) {
   const dialogRef = useRef(null)
   const returnFocusRef = useRef(null)
+  const closeTimerRef = useRef(0)
+  const closingRef = useRef(false)
+  const [isClosing, setIsClosing] = useState(false)
 
-  useOverlayHistory(Boolean(project), onClose, 'project-modal')
+  const requestClose = useCallback(() => {
+    if (closingRef.current) return
+
+    if (prefersReducedMotion()) {
+      onClose()
+      return
+    }
+
+    closingRef.current = true
+    setIsClosing(true)
+    closeTimerRef.current = window.setTimeout(() => {
+      closingRef.current = false
+      setIsClosing(false)
+      onClose()
+    }, 230)
+  }, [onClose])
+
+  useOverlayHistory(Boolean(project), requestClose, 'project-modal')
+
+  useEffect(() => {
+    if (!project) return undefined
+
+    closingRef.current = false
+    setIsClosing(false)
+
+    return () => {
+      window.clearTimeout(closeTimerRef.current)
+    }
+  }, [project])
 
   useEffect(() => {
     if (!project) return undefined
@@ -18,7 +50,7 @@ export default function ProjectModal({ project, onClose }) {
 
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
-        onClose()
+        requestClose()
         return
       }
 
@@ -69,20 +101,22 @@ export default function ProjectModal({ project, onClose }) {
         returnFocusRef.current.focus({ preventScroll: true })
       }
     }
-  }, [project, onClose])
+  }, [project, requestClose])
 
   if (!project) return null
 
   const detailItems = [
+    ['项目类型 / Platform', `${project.projectType} · ${project.platform}`],
     ['项目背景', project.background],
     ['我的职责', project.role],
-    ['工作流程', project.process],
+    ['实际执行 / 工作流程', project.process],
     ['使用工具', project.tools],
+    ['最终产出', project.deliverable],
     ['项目沉淀', project.takeaway],
   ]
 
   return (
-    <div className="project-modal-backdrop" onClick={onClose}>
+    <div className={`project-modal-backdrop ${isClosing ? 'is-closing' : ''}`} onClick={requestClose}>
       <div
         aria-modal="true"
         className="project-modal glass-panel"
@@ -91,7 +125,7 @@ export default function ProjectModal({ project, onClose }) {
         tabIndex={-1}
         onClick={(event) => event.stopPropagation()}
       >
-        <button className="project-modal-close" type="button" aria-label="关闭项目详情" onClick={onClose}>
+        <button className="project-modal-close" type="button" aria-label="关闭项目详情" onClick={requestClose}>
           ×
         </button>
 
@@ -123,7 +157,7 @@ export default function ProjectModal({ project, onClose }) {
             </div>
 
             <div className="project-modal-footer">
-              <button className="project-modal-action" type="button" onClick={onClose}>
+              <button className="project-modal-action" type="button" onClick={requestClose}>
                 关闭详情
               </button>
             </div>

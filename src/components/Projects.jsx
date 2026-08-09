@@ -6,8 +6,13 @@ import GlassBackgroundMotion from '../motion/GlassBackgroundMotion'
 
 const projects = [
   {
+    featured: true,
     title: '男装批发商品上架与链接维护',
     cardTitle: '商品上架与链接维护',
+    projectType: '男装批发 · 商品运营',
+    platform: '淘宝 / 抖店',
+    cardRole: '商品运营执行',
+    deliverable: '商品信息检查清单与链接维护记录',
     description: '商品上新、标题优化、主图维护，提升商品质量与曝光效率。',
     background:
       '围绕男装批发类目商品，完成日常商品链接上架、标题关键词整理、主图与详情页基础维护，并根据平台展示效果持续调整商品信息。',
@@ -22,8 +27,13 @@ const projects = [
     visual: 'listing',
   },
   {
+    featured: true,
     title: '店铺日常运营与订单协同流程',
     cardTitle: '店铺运营与订单协同',
+    projectType: '店铺日常运营 · 流程协同',
+    platform: '淘宝 / 抖店 / 千牛',
+    cardRole: '店铺运营协同',
+    deliverable: '订单、发货与售后节点记录',
     description: '店铺日常运营、客户沟通，订单处理及售后跟进。',
     background:
       '店铺日常运营涉及客户咨询、订单确认、售后反馈和发货库存对接，需要让信息在多个环节之间流转清楚、处理及时。',
@@ -38,8 +48,13 @@ const projects = [
     visual: 'operations',
   },
   {
+    featured: false,
     title: '活动报名与流程执行',
     cardTitle: '活动报名与流程执行',
+    projectType: '平台活动 · 执行配合',
+    platform: '淘宝 / 抖店',
+    cardRole: '活动执行协同',
+    deliverable: '活动资料、节点与复盘清单',
     description: '活动提报、素材准备、资源跟进，确保活动顺利落地执行。',
     background:
       '围绕店铺活动报名与执行配合，需要提前整理商品资料、核对活动要求、跟进执行节点，并在活动后整理复盘内容。',
@@ -54,8 +69,13 @@ const projects = [
     visual: 'campaign',
   },
   {
+    featured: false,
     title: 'AI 辅助电商运营效率提升',
     cardTitle: 'AI 辅助运营效率提升',
+    projectType: '运营效率 · AI 辅助实践',
+    platform: 'AI Tools / Office',
+    cardRole: '运营效率实践',
+    deliverable: '标题、话术与资料整理模板',
     description: '借助 AI 工具优化日常工作，提升内容生产与运营效率。',
     background:
       '在日常电商运营中，尝试将 AI 工具用于标题思路、商品卖点、客服话术和表格内容整理，辅助提升资料整理效率。',
@@ -85,28 +105,51 @@ export default function Projects() {
       />
       <div className="max-shell poster-page projects-page">
         <div className="poster-copy projects-copy">
-          <h2 className="poster-title">PROJECTS</h2>
-          <p className="poster-kicker">项目作品</p>
-          <span className="poster-rule" aria-hidden="true" />
-          <h3>
+          <h2 className="poster-title" data-motion="mask-reveal">PROJECTS</h2>
+          <p className="poster-kicker" data-motion="fade-in" style={{ '--motion-delay-desktop': '65ms', '--motion-delay-mobile': '30ms' }}>项目作品</p>
+          <span className="poster-rule" aria-hidden="true" data-motion="line-x" style={{ '--motion-delay-desktop': '95ms', '--motion-delay-mobile': '45ms' }} />
+          <h3 data-motion="fade-up" style={{ '--motion-delay-desktop': '135ms', '--motion-delay-mobile': '70ms' }}>
             围绕电商运营核心流程，
             <br />
             持续沉淀可复用的方法与实践。
           </h3>
-          <p>
+          <p data-motion="fade-in" style={{ '--motion-delay-desktop': '200ms', '--motion-delay-mobile': '105ms' }}>
             从商品到订单，从活动到效率，用执行力把每个环节做到更清晰、更可靠。
           </p>
         </div>
 
         <div className="project-grid poster-project-row">
           {projects.map((project, index) => (
-            <article className="project-card glass-panel poster-project-card" key={project.title}>
+            <article
+              className={`project-card glass-panel poster-project-card ${project.featured ? 'is-featured-project' : 'is-supporting-project'}`}
+              key={project.title}
+              data-motion="project-card"
+              style={{ '--motion-delay-desktop': `${285 + index * 70}ms`, '--motion-delay-mobile': '25ms' }}
+            >
               <span className={`poster-project-icon poster-project-icon-${project.icon}`} aria-hidden="true" />
               <div className="project-body">
-                <span className="project-card-number">{String(index + 1).padStart(2, '0')}</span>
+                <div className="project-card-topline">
+                  <span className="project-card-number">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  {project.featured ? <span className="project-featured-mark">FEATURED CASE</span> : null}
+                </div>
                 <h3>{project.cardTitle}</h3>
                 <p>{project.description}</p>
-                <div className="project-flow" aria-label={`${project.cardTitle}流程`}>
+                <div className="project-card-evidence" aria-label={`${project.cardTitle}项目摘要`}>
+                  {project.featured ? (
+                    <>
+                      <span><small>PLATFORM</small>{project.platform}</span>
+                      <span><small>ROLE</small>{project.cardRole}</span>
+                    </>
+                  ) : (
+                    project.tags.slice(0, 2).map((tag) => <span key={tag}>{tag}</span>)
+                  )}
+                </div>
+                <div
+                  className="project-flow"
+                  aria-label={`${project.cardTitle}流程`}
+                >
                   {project.flow.map((step, stepIndex) => (
                     <span key={step}>
                       {step}
@@ -126,7 +169,7 @@ export default function Projects() {
           ))}
         </div>
 
-        <div className="section-footer-meta" aria-hidden="true">
+        <div className="section-footer-meta" aria-hidden="true" data-motion="fade-up" style={{ '--motion-delay-desktop': '620ms', '--motion-delay-mobile': '25ms' }}>
           <div>
             <span>BASED IN</span>
             <strong>HUANGSHAN</strong>

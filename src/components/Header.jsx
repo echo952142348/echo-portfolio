@@ -14,7 +14,9 @@ const sectionMeta = Object.fromEntries(sections.map((section) => [section.id, se
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
+  const [isScrolled, setIsScrolled] = useState(false)
   const activeSectionRef = useRef('hero')
+  const isScrolledRef = useRef(false)
   const navRef = useRef(null)
   const menuToggleRef = useRef(null)
   const closeMenu = useCallback(() => setMenuOpen(false), [])
@@ -93,6 +95,12 @@ export default function Header() {
     const updateActiveSection = () => {
       frameId = 0
 
+      const nextScrolled = window.scrollY > 24
+      if (isScrolledRef.current !== nextScrolled) {
+        isScrolledRef.current = nextScrolled
+        setIsScrolled(nextScrolled)
+      }
+
       if (document.body.classList.contains('modal-open')) {
         return
       }
@@ -156,11 +164,12 @@ export default function Header() {
 
     if (sectionMeta[targetId]) {
       setActiveSectionSafely(targetId)
+      window.dispatchEvent(new CustomEvent('motion:reveal-section', { detail: { id: targetId } }))
     }
 
     if (menuOpen) {
       closeMenu()
-      window.setTimeout(() => scrollToSection(href), 140)
+      window.setTimeout(() => scrollToSection(href), 230)
       return
     }
 
@@ -171,12 +180,14 @@ export default function Header() {
   const activeMeta = sectionMeta[activeSection] ?? sectionMeta.hero
 
   return (
-    <header className={`site-header ${menuOpen ? 'menu-open' : ''} ${activeSection === 'hero' ? 'is-hero-active' : ''}`}>
+    <header
+      className={`site-header ${menuOpen ? 'menu-open' : ''} ${isScrolled ? 'is-scrolled' : ''} ${activeSection === 'hero' ? 'is-hero-active' : ''}`}
+    >
       <nav className="nav-shell" ref={navRef} aria-label="主导航">
         <a className="brand" href="#hero" aria-label="返回首页" onClick={(event) => handleNavClick(event, '#hero')}>
           <span>SX</span>
           <small>/</small>
-          <strong>{activeMeta.label}</strong>
+          <strong key={activeSection} className="brand-section-label">{activeMeta.label}</strong>
         </a>
 
         <div className="nav-links" id="mobile-navigation-menu">

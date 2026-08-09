@@ -3,6 +3,21 @@ export const emailCopySuccessMessage = '邮箱地址已复制'
 export const emailCopyFailureMessage = '复制失败，请手动复制'
 
 function copyTextFallback(text) {
+  let copied = false
+  const handleCopy = (event) => {
+    event.clipboardData?.setData('text/plain', text)
+    event.preventDefault()
+    copied = true
+  }
+
+  document.addEventListener('copy', handleCopy)
+  const commandResult = document.execCommand('copy')
+  document.removeEventListener('copy', handleCopy)
+
+  if (copied || commandResult) {
+    return
+  }
+
   const textarea = document.createElement('textarea')
   textarea.value = text
   textarea.setAttribute('readonly', '')
@@ -12,18 +27,21 @@ function copyTextFallback(text) {
   document.body.appendChild(textarea)
   textarea.focus()
   textarea.select()
-  const copied = document.execCommand('copy')
+  const textareaCopied = document.execCommand('copy')
   document.body.removeChild(textarea)
 
-  if (!copied) {
-    throw new Error('fallback copy failed')
-  }
+  if (!textareaCopied) throw new Error('fallback copy failed')
 }
 
 export async function copyEmailAddress() {
   if (navigator.clipboard?.writeText) {
     try {
-      await navigator.clipboard.writeText(contactEmail)
+      await Promise.race([
+        navigator.clipboard.writeText(contactEmail),
+        new Promise((_, reject) => {
+          window.setTimeout(() => reject(new Error('clipboard write timeout')), 800)
+        }),
+      ])
       return
     } catch {
       copyTextFallback(contactEmail)

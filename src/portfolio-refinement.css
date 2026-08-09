@@ -1,0 +1,625 @@
+/* Portfolio refinement pass.
+   Loaded last so every change stays scoped, reversible, and independent from
+   the calibrated clean-artwork composition. */
+
+.project-card-topline {
+  min-width: 0;
+}
+
+.project-featured-mark {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 0 9px;
+  border: 1px solid rgba(7, 26, 56, 0.12);
+  border-radius: 999px;
+  color: rgba(7, 26, 56, 0.68);
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 0.55rem;
+  font-weight: 560;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.project-card-evidence {
+  min-width: 0;
+}
+
+.project-card-evidence span {
+  min-width: 0;
+}
+
+.project-card-evidence small {
+  display: block;
+}
+
+.capability-tier-labels {
+  pointer-events: none;
+}
+
+.contact-career-facts,
+.contact-career-facts div,
+.contact-platforms ul {
+  margin: 0;
+  padding: 0;
+}
+
+.contact-career-facts div {
+  min-width: 0;
+}
+
+.contact-career-facts dt,
+.contact-career-facts dd {
+  margin: 0;
+}
+
+.contact-platforms ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+@media (min-width: 1025px) {
+  /* Fade calibrated artwork into the shared ivory canvas instead of exposing
+     a hard image edge between adjacent sections. */
+  .hero .reference-art-clean-source {
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 92%, rgba(0, 0, 0, 0.82) 96%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 92%, rgba(0, 0, 0, 0.82) 96%, transparent 100%);
+  }
+
+  .about .reference-art-clean-source,
+  .projects .reference-art-clean-source,
+  .strengths .reference-art-clean-source {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.82) 3%,
+      #000 7%,
+      #000 93%,
+      rgba(0, 0, 0, 0.82) 97%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.82) 3%,
+      #000 7%,
+      #000 93%,
+      rgba(0, 0, 0, 0.82) 97%,
+      transparent 100%
+    );
+  }
+
+  .contact .reference-art-clean-source {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 3%, rgba(0, 0, 0, 0.58) 6%, rgba(0, 0, 0, 0.9) 10%, #000 12%, #000 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, transparent 3%, rgba(0, 0, 0, 0.58) 6%, rgba(0, 0, 0, 0.9) 10%, #000 12%, #000 100%);
+  }
+
+  /* Pull adjacent artwork into one continuous stage. The negative margins are
+     the overlap itself; section content keeps its calibrated local position. */
+  .strengths {
+    z-index: 1;
+    margin-top: -80px;
+  }
+
+  .strengths .reference-art-clean-source {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.82) 3%,
+      #000 7%,
+      #000 90.5%,
+      rgba(0, 0, 0, 0.86) 94%,
+      rgba(0, 0, 0, 0.42) 97.5%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.82) 3%,
+      #000 7%,
+      #000 90.5%,
+      rgba(0, 0, 0, 0.86) 94%,
+      rgba(0, 0, 0, 0.42) 97.5%,
+      transparent 100%
+    );
+  }
+
+  .contact {
+    z-index: 2;
+    margin-top: -128px;
+    background: transparent !important;
+  }
+
+  /* The low-alpha layer follows the existing nav geometry without changing
+     its measured width, spacing, or active underline. */
+  .nav-shell {
+    isolation: isolate;
+  }
+
+  .nav-shell::before {
+    position: absolute;
+    inset: -10px -18px;
+    z-index: 0;
+    content: '';
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 999px;
+    background: rgba(250, 247, 242, 0.18);
+    box-shadow: 0 8px 24px rgba(48, 54, 64, 0.025);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    opacity: 0;
+    transition: opacity 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .site-header.is-scrolled .nav-shell::before {
+    opacity: 1;
+  }
+
+  .nav-shell > .brand,
+  .nav-shell > .nav-links,
+  .nav-shell > .nav-contact,
+  .nav-shell > .mobile-menu-toggle {
+    z-index: 1;
+  }
+
+  /* Preserve the artwork while giving copy a slightly steadier reading field. */
+  .about-copy,
+  .projects-copy {
+    background: radial-gradient(ellipse at 34% 52%, rgba(252, 249, 245, 0.2), rgba(252, 249, 245, 0.08) 58%, transparent 80%);
+  }
+
+  .about-copy > p:not(.poster-kicker),
+  .projects-copy > p:not(.poster-kicker) {
+    color: rgba(7, 26, 56, 0.81) !important;
+  }
+
+  /* Projects: keep the calibrated four-card row, but make the first two read
+     as documented case work rather than another pair of responsibility cards. */
+  .poster-project-card .project-body {
+    grid-template-rows: 56px 56px 57px 58px 49px 31px !important;
+  }
+
+  .project-card-topline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .poster-project-card.is-featured-project {
+    border-color: rgba(255, 255, 255, 0.39) !important;
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.19), rgba(255, 255, 255, 0.06)),
+      rgba(255, 255, 255, 0.075) !important;
+    box-shadow:
+      inset 2px 0 0 rgba(7, 26, 56, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.38),
+      0 16px 36px rgba(66, 62, 58, 0.045) !important;
+  }
+
+  .poster-project-card.is-featured-project h3 {
+    font-weight: 600 !important;
+  }
+
+  .is-featured-project .project-featured-mark {
+    border-color: rgba(7, 26, 56, 0.16);
+    color: rgba(7, 26, 56, 0.76);
+    background: rgba(255, 255, 255, 0.2);
+    font-weight: 580;
+  }
+
+  .poster-project-card.is-supporting-project {
+    border-color: rgba(255, 255, 255, 0.24) !important;
+  }
+
+  .project-card-evidence {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-self: start;
+    gap: 8px;
+  }
+
+  .project-card-evidence > span {
+    display: block;
+    overflow: hidden;
+    color: rgba(7, 26, 56, 0.72);
+    font-size: clamp(0.62rem, 0.58vw, 0.72rem);
+    font-weight: 520;
+    line-height: 1.35;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .is-featured-project .project-card-evidence > span + span {
+    padding-left: 10px;
+    border-left: 1px solid rgba(7, 26, 56, 0.1);
+  }
+
+  .project-card-evidence small {
+    margin-bottom: 4px;
+    color: rgba(7, 26, 56, 0.42);
+    font-size: 0.5rem;
+    font-weight: 520;
+    letter-spacing: 0.08em;
+  }
+
+  .is-supporting-project .project-card-evidence {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+  }
+
+  .is-supporting-project .project-card-evidence > span {
+    width: max-content;
+    padding: 5px 8px;
+    border: 1px solid rgba(7, 26, 56, 0.09);
+    border-radius: 999px;
+    color: rgba(7, 26, 56, 0.52);
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 0.56rem;
+  }
+
+  .project-flow {
+    align-self: center !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Capabilities hierarchy: geometry stays exactly where it was calibrated. */
+  .capability-tier-labels {
+    position: absolute;
+    left: 28.35%;
+    top: calc(30.55% - 20px);
+    z-index: 4;
+    display: grid;
+    width: 49.1%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 4.65%;
+    color: rgba(7, 26, 56, 0.44);
+    font-size: clamp(0.55rem, 0.52vw, 0.66rem);
+    font-weight: 560;
+    letter-spacing: 0.09em;
+  }
+
+  .capability-item--primary .capability-number,
+  .capability-item--primary h3 {
+    color: rgba(7, 26, 56, 0.96) !important;
+  }
+
+  .capability-item--primary h3 {
+    font-weight: 620 !important;
+  }
+
+  .capability-item--supporting .capability-number {
+    color: rgba(7, 26, 56, 0.58) !important;
+  }
+
+  .capability-item--supporting h3 {
+    color: rgba(7, 26, 56, 0.7) !important;
+    font-weight: 530 !important;
+  }
+
+  .capability-item--supporting p {
+    color: rgba(7, 26, 56, 0.6) !important;
+  }
+
+  .capability-item--supporting .capability-icon {
+    border-color: rgba(255, 255, 255, 0.28) !important;
+    color: rgba(7, 26, 56, 0.74) !important;
+    background: rgba(255, 255, 255, 0.11) !important;
+  }
+
+  .capability-item--supporting .capability-dots,
+  .capability-item--supporting > strong {
+    opacity: 0.76;
+  }
+
+  .capability-list {
+    top: calc(34.2% - 56px) !important;
+  }
+
+  /* Contact: convert the existing glass panel into a concise job-search
+     information surface without moving or resizing the panel itself. */
+  .contact-panel {
+    min-height: 28.5% !important;
+    padding: 34px 50px 30px !important;
+  }
+
+  .contact-panel .contact-focus-label {
+    color: rgba(7, 26, 56, 0.5) !important;
+    font-size: clamp(0.6rem, 0.54vw, 0.68rem) !important;
+    font-weight: 520 !important;
+    letter-spacing: 0.07em !important;
+  }
+
+  .contact-panel .contact-focus-title {
+    margin-top: 14px !important;
+    font-size: clamp(1.08rem, 1.14vw, 1.48rem) !important;
+    line-height: 1.5 !important;
+  }
+
+  .contact-panel .contact-focus-line {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .contact-career-facts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin-top: 18px;
+  }
+
+  .contact-career-facts div {
+    padding-right: 10px;
+  }
+
+  .contact-career-facts div + div {
+    padding-left: 12px;
+    border-left: 1px solid rgba(7, 26, 56, 0.1);
+  }
+
+  .contact-career-facts dt,
+  .contact-platforms > span {
+    color: rgba(7, 26, 56, 0.45);
+    font-size: 0.55rem;
+    font-weight: 520;
+    letter-spacing: 0.06em;
+  }
+
+  .contact-career-facts dd {
+    margin-top: 6px;
+    color: rgba(7, 26, 56, 0.84);
+    font-size: clamp(0.68rem, 0.62vw, 0.78rem);
+    font-weight: 560;
+    line-height: 1.35;
+  }
+
+  .contact-platforms {
+    margin-top: 16px;
+  }
+
+  .contact-platforms ul {
+    gap: 6px;
+    margin-top: 7px;
+  }
+
+  .contact-platforms li {
+    padding: 4px 7px;
+    border: 1px solid rgba(7, 26, 56, 0.1);
+    border-radius: 999px;
+    color: rgba(7, 26, 56, 0.62);
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 0.55rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .button,
+  .contact-note,
+  .project-detail-link {
+    transition:
+      color 240ms ease,
+      border-color 240ms ease,
+      background-color 240ms ease,
+      transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 280ms ease !important;
+  }
+
+  .button:hover,
+  .contact-note:hover,
+  .project-detail-link:hover {
+    transform: translate3d(0, -2px, 0);
+  }
+
+  html.motion-ready [data-motion] {
+    transition-duration: 720ms, 720ms, 780ms;
+  }
+}
+
+/* Preserve the established responsive flow while allowing the new evidence
+   and career information to wrap naturally on smaller screens. */
+@media (max-width: 1024px) {
+  .project-card-topline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 12px;
+    margin: 0 0 18px;
+  }
+
+  .poster-project-card .project-card-number {
+    margin: 0 !important;
+  }
+
+  .project-featured-mark {
+    margin-top: 1px;
+  }
+
+  .project-card-evidence {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    margin: 0 0 24px;
+    padding: 14px 0;
+    border-top: 1px solid rgba(7, 26, 56, 0.09);
+    border-bottom: 1px solid rgba(7, 26, 56, 0.09);
+  }
+
+  .project-card-evidence > span {
+    color: rgba(7, 26, 56, 0.72);
+    font-size: 0.76rem;
+    font-weight: 520;
+    line-height: 1.45;
+  }
+
+  .project-card-evidence small {
+    margin-bottom: 3px;
+    color: rgba(7, 26, 56, 0.44);
+    font-size: 0.58rem;
+    letter-spacing: 0.07em;
+  }
+
+  .is-supporting-project .project-card-evidence > span {
+    padding: 5px 9px;
+    border: 1px solid rgba(7, 26, 56, 0.09);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .capability-tier-labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px 16px;
+    margin: 22px 0 4px;
+    color: rgba(7, 26, 56, 0.48);
+    font-size: 0.62rem;
+    font-weight: 560;
+    letter-spacing: 0.07em;
+  }
+
+  .capability-tier-labels span:first-child::after {
+    margin-left: 16px;
+    content: '01—04';
+    color: rgba(7, 26, 56, 0.28);
+  }
+
+  .capability-tier-labels span:last-child::after {
+    margin-left: 16px;
+    content: '05—08';
+    color: rgba(7, 26, 56, 0.28);
+  }
+
+  .capability-item--primary h3 {
+    font-weight: 620 !important;
+  }
+
+  .capability-item--supporting .capability-number,
+  .capability-item--supporting .capability-icon {
+    color: rgba(23, 34, 49, 0.4) !important;
+  }
+
+  .capability-item--supporting .capability-icon {
+    border-color: rgba(255, 255, 255, 0.28) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .capability-item--supporting h3 {
+    color: rgba(7, 26, 56, 0.86) !important;
+  }
+
+  .capability-item--supporting p {
+    color: rgba(7, 26, 56, 0.54) !important;
+  }
+
+  .contact-panel .contact-focus-title {
+    margin-top: 18px !important;
+  }
+
+  .contact-career-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 24px;
+  }
+
+  .contact-career-facts div {
+    padding-top: 12px;
+    border-top: 1px solid rgba(7, 26, 56, 0.09);
+  }
+
+  .contact-career-facts div:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .contact-career-facts dt,
+  .contact-platforms > span {
+    color: rgba(7, 26, 56, 0.46);
+    font-size: 0.62rem;
+    font-weight: 520;
+    letter-spacing: 0.06em;
+  }
+
+  .contact-career-facts dd {
+    margin-top: 5px;
+    color: rgba(7, 26, 56, 0.84);
+    font-size: 0.8rem;
+    font-weight: 560;
+  }
+
+  .contact-platforms {
+    margin-top: 22px;
+  }
+
+  .contact-platforms ul {
+    gap: 7px;
+    margin-top: 10px;
+  }
+
+  .contact-platforms li {
+    padding: 6px 9px;
+    border: 1px solid rgba(7, 26, 56, 0.09);
+    border-radius: 999px;
+    color: rgba(7, 26, 56, 0.66);
+    background: rgba(255, 255, 255, 0.09);
+    font-size: 0.68rem;
+    white-space: nowrap;
+  }
+
+  html.motion-ready [data-motion] {
+    transition-duration: 620ms, 620ms, 680ms;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-featured-mark {
+    padding-inline: 8px;
+    font-size: 0.5rem;
+  }
+
+  .project-card-evidence {
+    gap: 8px 14px;
+  }
+
+  .project-card-evidence > span {
+    font-size: 0.72rem;
+  }
+
+  .capability-tier-labels {
+    justify-content: space-between;
+    gap: 7px;
+    font-size: 0.56rem;
+  }
+
+  .capability-tier-labels span {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .capability-tier-labels span + span::before {
+    width: 1px;
+    height: 10px;
+    margin-right: 8px;
+    content: '';
+    background: rgba(7, 26, 56, 0.16);
+  }
+
+  .capability-tier-labels span::after {
+    display: none;
+  }
+
+  .contact-platforms li {
+    font-size: 0.64rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-shell::before,
+  .button,
+  .contact-note,
+  .project-detail-link {
+    transition: none !important;
+  }
+}
